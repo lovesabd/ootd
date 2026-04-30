@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#ffffff">
+<title>OOTD — 오늘의 코디</title>
+<style>
+  :root {
+    --purple: #3C3489;
+    --purple-light: #EEEDFE;
+    --purple-mid: #534AB7;
+    --amber: #EF9F27;
+    --amber-dark: #BA7517;
+    --green: #639922;
+    --bg: #ffffff;
+    --bg2: #f5f5f3;
+    --bg3: #efefed;
+    --text1: #1a1a1a;
+    --text2: #555550;
+    --text3: #999990;
+    --border1: rgba(0,0,0,0.12);
+    --border2: rgba(0,0,0,0.08);
+    --radius-sm: 10px;
+    --radius-md: 14px;
+    --radius-lg: 20px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #111110;
+      --bg2: #1e1e1c;
+      --bg3: #282826;
+      --text1: #f0f0ee;
+      --text2: #aaaaaa;
+      --text3: #666660;
+      --border1: rgba(255,255,255,0.14);
+      --border2: rgba(255,255,255,0.08);
+      --purple-light: #1e1a3a;
+    }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html, body { height: 100%; overflow: hidden; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Pretendard', 'Apple SD Gothic Neo', sans-serif;
+    background: var(--bg3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* ── Phone shell ── */
+  .app {
+    width: 100%;
+    max-width: 430px;
+    height: 100%;
+    max-height: 932px;
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+  }
+  @media (max-width: 430px) {
+    body { align-items: flex-start; }
+    .app { max-height: 100%; border-radius: 0; }
+  }
+
+  /* ── Safe area / status ── */
+  .safe-top { height: env(safe-area-inset-top, 44px); background: var(--bg); }
+
+  /* ── Screens ── */
+  .screen { display: none; flex-direction: column; flex: 1; overflow: hidden; }
+  .screen.active { display: flex; }
+  .scroll { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 0 20px 110px; }
+
+  /* ── Top bar ── */
+  .topbar {
+    padding: 12px 20px 10px;
+    display: flex; align-items: flex-end; justify-content: space-between;
+    border-bottom: 0.5px solid var(--border1);
+    flex-shrink: 0;
+  }
+  .topbar-title { font-size: 22px; font-weight: 600; letter-spacing: -0.6px; color: var(--text1); }
+  .topbar-sub { font-size: 12px; color: var(--text3); margin-top: 2px; }
+
+  /* ── Section label ── */
+  .slbl { font-size: 10px; letter-spacing: 0.1em; color: var(--text3); text-transform: uppercase; margin: 20px 0 10px; }
+
+  /* ── Bottom nav ── */
+  .bottomnav {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: calc(60px + env(safe-area-inset-bottom, 0px));
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    background: var(--bg);
+    border-top: 0.5px solid var(--border1);
+    display: flex; align-items: flex-start; padding-top: 8px;
+    z-index: 100;
+  }
+  .nav-tab {
+    flex: 1; display: flex; flex-direction: column; align-items: center;
+    gap: 3px; padding: 4px 0; border: none; background: transparent; cursor: pointer;
+    font-family: inherit;
+  }
+  .nav-icon { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; transition: background .15s; }
+  .nav-tab.on .nav-icon { background: var(--purple-light); }
+  .nav-lbl { font-size: 10px; color: var(--text3); }
+  .nav-tab.on .nav-lbl { color: var(--purple); font-weight: 600; }
+
+  /* ── Shared components ── */
+  .btn-primary {
+    width: 100%; padding: 15px; background: var(--purple); color: white;
+    border: none; border-radius: var(--radius-md); font-size: 15px; font-weight: 600;
+    cursor: pointer; font-family: inherit; letter-spacing: -0.2px;
+    transition: opacity .15s;
+  }
+  .btn-primary:active { opacity: 0.82; }
+
+  .pill {
+    display: inline-block; font-size: 11px; padding: 4px 12px;
+    border-radius: 20px; border: 1px solid var(--border1);
+    color: var(--text2); background: transparent; cursor: pointer;
+    font-family: inherit; white-space: nowrap; transition: all .15s;
+  }
+  .pill.on { background: var(--purple); color: white; border-color: var(--purple); }
+  .pill.soft.on { background: var(--purple-light); color: var(--purple); border-color: var(--purple); }
+
+  .chip-row { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 4px; }
+
+  .card {
+    border: 0.5px solid var(--border1); border-radius: var(--radius-lg);
+    overflow: hidden; margin-bottom: 12px; background: var(--bg);
+  }
+  .card-inner { padding: 16px; }
+
+  /* Score ring */
+  .ring-wrap { position: relative; flex-shrink: 0; }
+  .ring-wrap svg { transform: rotate(-90deg); display: block; }
+  .ring-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); text-align: center; }
+  .ring-num { font-size: 17px; font-weight: 600; color: var(--text1); }
+  .ring-lbl { font-size: 9px; color: var(--text3); }
+
+  /* Mini bar */
+  .mini-bar-row { display: flex; align-items: center; gap: 6px; margin-bottom: 5px; }
+  .mini-bar-key { font-size: 10px; color: var(--text3); width: 42px; flex-shrink: 0; }
+  .mini-bar-track { flex: 1; height: 4px; background: var(--bg2); border-radius: 2px; overflow: hidden; }
+  .mini-bar-fill { height: 100%; border-radius: 2px; background: var(--purple); }
+  .mini-bar-val { font-size: 10px; color: var(--text3); width: 22px; text-align: right; }
+
+  /* Item tile */
+  .item-tile { display: flex; flex-direction: column; align-items: center; gap: 5px; flex-shrink: 0; }
+  .item-box {
+    width: 56px; height: 56px; border-radius: 14px;
+    border: 0.5px solid var(--border1);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; position: relative; background: var(--bg2);
+  }
+  .i-ok, .i-miss {
+    position: absolute; bottom: -4px; right: -4px;
+    width: 16px; height: 16px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px; color: white; font-weight: 700;
+  }
+  .i-ok { background: var(--green); }
+  .i-ok::after { content: '✓'; }
+  .i-miss { background: var(--amber); }
+  .i-miss::after { content: '!'; }
+  .item-name { font-size: 10px; color: var(--text3); text-align: center; line-height: 1.3; }
+
+  /* Occasion card */
+  .occ-card {
+    flex-shrink: 0; width: 96px; border: 1.5px solid var(--border1);
+    border-radius: 16px; padding: 14px 8px; text-align: center; cursor: pointer;
+    background: var(--bg); transition: all .15s;
+  }
+  .occ-card.on { border-color: var(--purple); background: var(--purple-light); }
+  .occ-card.on .oc-lbl { color: var(--purple); }
+  .oc-emoji { font-size: 22px; margin-bottom: 6px; }
+  .oc-lbl { font-size: 12px; font-weight: 600; color: var(--text1); }
+  .oc-sub { font-size: 10px; color: var(--text3); margin-top: 2px; line-height: 1.3; }
+
+  /* ── HOME SCREEN ── */
+  .weather-pill {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--bg2); border-radius: 24px; padding: 8px 14px;
+  }
+  .score-area { display: flex; align-items: center; gap: 14px; padding: 14px 16px; }
+  .items-strip { display: flex; gap: 8px; overflow-x: auto; padding: 0 16px 14px; }
+  .divider { height: 0.5px; background: var(--border1); margin: 0 16px; }
+  .missing-banner {
+    margin: 12px 16px; background: #FAEEDA; border-radius: 12px; padding: 12px 14px;
+  }
+  .missing-link { font-size: 12px; color: var(--purple); margin-top: 8px; cursor: pointer; display: flex; align-items: center; gap: 4px; }
+  .card-actions { display: flex; border-top: 0.5px solid var(--border1); }
+  .ca-btn { flex: 1; padding: 13px 8px; font-size: 13px; border: none; background: transparent; cursor: pointer; color: var(--text2); font-family: inherit; }
+  .ca-btn.main { color: var(--purple); font-weight: 600; border-left: 0.5px solid var(--border1); }
+  .alt-card {
+    display: flex; align-items: center; gap: 12px;
+    border: 0.5px solid var(--border1); border-radius: 14px;
+    padding: 12px 14px; cursor: pointer; margin-bottom: 8px; background: var(--bg);
+    transition: background .12s;
+  }
+  .alt-card:active { background: var(--bg2); }
+
+  /* ── REQUEST SCREEN ── */
+  .occ-scroll { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; }
+  .date-strip { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; }
+  .date-chip {
+    flex-shrink: 0; display: flex; flex-direction: column; align-items: center;
+    padding: 8px 14px; border-radius: 12px; border: 1px solid var(--border1);
+    cursor: pointer; background: transparent; font-family: inherit; transition: all .15s;
+  }
+  .date-chip.on { background: var(--purple); border-color: var(--purple); }
+  .dc-day { font-size: 10px; color: var(--text3); }
+  .dc-num { font-size: 15px; font-weight: 600; color: var(--text1); }
+  .date-chip.on .dc-day, .date-chip.on .dc-num { color: white; }
+  .score-box { background: var(--bg2); border-radius: 16px; padding: 18px; margin-bottom: 4px; }
+  .score-big { font-size: 32px; font-weight: 700; color: var(--purple); letter-spacing: -1px; }
+  .memo-input {
+    width: 100%; padding: 12px 14px; border: 1px solid var(--border1);
+    border-radius: var(--radius-sm); font-size: 14px; color: var(--text1);
+    background: var(--bg); font-family: inherit; resize: none; line-height: 1.6;
+  }
+  .memo-input:focus { outline: none; border-color: var(--purple); }
+  .cta-footer {
+    position: absolute; bottom: 60px; left: 0; right: 0;
+    padding: 10px 20px; background: var(--bg);
+    border-top: 0.5px solid var(--border1); z-index: 50;
+  }
+
+  /* ── RESULT SCREEN ── */
+  .back-btn { border: none; background: transparent; font-size: 20px; cursor: pointer; color: var(--text2); padding: 0 4px; }
+  .result-actions { display: flex; border-top: 0.5px solid var(--border1); }
+  .ra-btn { flex: 1; padding: 13px 6px; font-size: 12px; border: none; background: transparent; cursor: pointer; color: var(--text2); font-family: inherit; }
+  .ra-btn.main { color: var(--purple); font-weight: 600; }
+  .ai-explain {
+    border: 0.5px solid var(--border1); border-radius: 16px; overflow: hidden; margin-bottom: 14px;
+  }
+  .ai-explain-top { padding: 14px 16px; border-bottom: 0.5px solid var(--border1); background: var(--bg2); }
+
+  /* ── CLOSET SCREEN ── */
+  .item-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .closet-cell {
+    aspect-ratio: 1; background: var(--bg2); border-radius: 14px;
+    border: 0.5px solid var(--border1); display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 5px; position: relative; cursor: pointer;
+    transition: opacity .12s;
+  }
+  .closet-cell:active { opacity: 0.7; }
+  .closet-add { border: 1.5px dashed var(--border1); background: transparent; font-size: 24px; color: var(--text3); }
+  .cc-badge {
+    position: absolute; top: 6px; left: 6px;
+    font-size: 9px; background: var(--purple-light); color: var(--purple);
+    padding: 2px 7px; border-radius: 8px;
+  }
+  .cc-dot {
+    position: absolute; bottom: 7px; right: 7px;
+    width: 10px; height: 10px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.1);
+  }
+
+  /* ── FEED SCREEN ── */
+  .feed-post { border: 0.5px solid var(--border1); border-radius: 18px; overflow: hidden; margin-bottom: 12px; background: var(--bg); }
+  .feed-item { display: flex; align-items: flex-start; gap: 10px; padding: 12px 0; border-bottom: 0.5px solid var(--border1); }
+  .feed-item:last-child { border-bottom: none; }
+  .feed-av { width: 36px; height: 36px; border-radius: 50%; background: var(--bg2); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; color: var(--text2); flex-shrink: 0; }
+  .like-btn { display: flex; flex-direction: column; align-items: center; gap: 2px; cursor: pointer; padding: 4px; border: none; background: transparent; font-family: inherit; }
+
+  /* ── PROFILE SCREEN ── */
+  .profile-section { background: var(--bg); border: 0.5px solid var(--border1); border-radius: var(--radius-md); overflow: hidden; margin-bottom: 12px; }
+  .profile-row { display: flex; align-items: center; justify-content: space-between; padding: 13px 16px; border-bottom: 0.5px solid var(--border1); }
+  .profile-row:last-child { border-bottom: none; }
+
+  /* ── ONBOARDING ── */
+  #onboarding { position: fixed; inset: 0; background: var(--bg); z-index: 200; display: flex; flex-direction: column; }
+  .ob-progress { height: 3px; background: var(--bg2); flex-shrink: 0; }
+  .ob-fill { height: 100%; background: var(--purple); transition: width .4s ease; }
+  .ob-scroll { flex: 1; overflow-y: auto; padding: 28px 24px 120px; }
+  .ob-footer { position: absolute; bottom: 0; left: 0; right: 0; padding: 12px 24px calc(12px + env(safe-area-inset-bottom,0px)); background: var(--bg); border-top: 0.5px solid var(--border1); }
+  .opt-grid { display: grid; gap: 10px; margin-bottom: 20px; }
+  .opt-grid.c2 { grid-template-columns: 1fr 1fr; }
+  .opt-grid.c3 { grid-template-columns: 1fr 1fr 1fr; }
+  .opt-card { border: 1.5px solid var(--border1); border-radius: 16px; padding: 16px 10px; cursor: pointer; text-align: center; background: var(--bg); transition: all .15s; }
+  .opt-card.on { border-color: var(--purple); background: var(--purple-light); }
+  .opt-card.on .opt-lbl { color: var(--purple); }
+  .opt-lbl { font-size: 13px; font-weight: 600; color: var(--text1); margin-top: 6px; }
+  .opt-sub { font-size: 11px; color: var(--text3); margin-top: 3px; line-height: 1.4; }
+  .tone-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+  .tone-dot { width: 40px; height: 40px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: all .15s; }
+  .tone-dot.on { border-color: var(--purple); box-shadow: 0 0 0 3px var(--purple-light); }
+
+  /* ── Splash ── */
+  #splash { position: fixed; inset: 0; background: var(--purple); z-index: 300; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; transition: opacity .5s; }
+  .splash-logo { font-size: 52px; font-weight: 700; color: white; letter-spacing: -2px; }
+  .splash-sub { font-size: 14px; color: rgba(255,255,255,0.6); }
+</style>
+</head>
+<body>
+
+<!-- Splash -->
+<div id="splash">
+  <div class="splash-logo">OOTD</div>
+  <div class="splash-sub">오늘의 코디</div>
+</div>
+
+<!-- Onboarding -->
+<div id="onboarding" style="display:none;">
+  <div class="safe-top"></div>
+  <div class="ob-progress"><div class="ob-fill" id="ob-bar" style="width:16%"></div></div>
+  <div style="padding:12px 24px 0;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;">
+    <div style="display:flex;gap:5px;" id="ob-dots">
+      <div style="width:18px;height:6px;border-radius:3px;background:var(--purple);"></div>
+      <div style="width:6px;height:6px;border-radius:3px;background:var(--bg2);"></div>
+      <div style="width:6px;height:6px;border-radius:3px;background:var(--bg2);"></div>
+      <div style="width:6px;height:6px;border-radius:3px;background:var(--bg2);"></div>
+      <div style="width:6px;height:6px;border-radius:3px;background:var(--bg2);"></div>
+    </div>
+    <span style="font-size:12px;color:var(--text3);" id="ob-counter">1 / 5</span>
+  </div>
+
+  <!-- Step contents -->
+  <div class="ob-scroll" id="ob-content">
+    <!-- filled by JS -->
+  </div>
+  <div class="ob-footer" id="ob-footer"></div>
+</div>
+
+<!-- Main App -->
+<div class="app" id="main-app" style="display:none;">
+  <div class="safe-top"></div>
+
+  <!-- ── HOME ── -->
+  <div class="screen active" id="sc-home">
+    <div class="topbar">
+      <div>
+        <div class="topbar-title">OOTD</div>
+        <div class="topbar-sub">오늘의 코디</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="weather-pill">
+          <span>🌤</span>
+          <div>
+            <div style="font-size:13px;font-weight:600;color:var(--text1);">14°</div>
+            <div style="font-size:10px;color:var(--text3);">맑음</div>
+          </div>
+        </div>
+        <div onclick="goScreen('profile')" style="width:32px;height:32px;border-radius:50%;background:var(--purple-light);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:var(--purple);cursor:pointer;">D</div>
+      </div>
+    </div>
+
+    <div class="scroll">
+      <div style="padding-top:16px;">
+        <div style="font-size:14px;font-weight:600;color:var(--text1);">2026년 4월 30일 목요일</div>
+        <div style="font-size:12px;color:var(--text3);margin-top:2px;">오늘도 멋진 하루, Danny</div>
+      </div>
+
+      <div class="slbl">오늘의 메인 코디</div>
+
+      <div class="card">
+        <div style="padding:16px 16px 0;">
+          <div style="font-size:11px;background:var(--purple-light);color:var(--purple);padding:4px 12px;border-radius:20px;display:inline-block;margin-bottom:8px;">비즈니스 캐주얼</div>
+          <div style="font-size:18px;font-weight:600;color:var(--text1);letter-spacing:-.4px;">네이비 & 브라운 코디</div>
+          <div style="font-size:12px;color:var(--text3);margin-top:3px;">외부 미팅 · 사무실 · 격식 있는 점심</div>
+        </div>
+        <div class="score-area">
+          <div class="ring-wrap" style="width:72px;height:72px;">
+            <svg width="72" height="72" viewBox="0 0 72 72">
+              <circle cx="36" cy="36" r="30" fill="none" stroke="var(--bg2)" stroke-width="7"/>
+              <circle cx="36" cy="36" r="30" fill="none" stroke="var(--purple)" stroke-width="7"
+                stroke-dasharray="188.5" stroke-dashoffset="33.9" stroke-linecap="round"/>
+            </svg>
+            <div class="ring-center">
+              <div class="ring-num">82%</div>
+              <div class="ring-lbl">완성도</div>
+            </div>
+          </div>
+          <div style="flex:1;">
+            <div style="font-size:12px;font-weight:600;color:var(--text1);margin-bottom:7px;">항목별 점수</div>
+            <div class="mini-bar-row"><span class="mini-bar-key">색상 조화</span><div class="mini-bar-track"><div class="mini-bar-fill" style="width:90%"></div></div><span class="mini-bar-val">90</span></div>
+            <div class="mini-bar-row"><span class="mini-bar-key">체형 핏</span><div class="mini-bar-track"><div class="mini-bar-fill" style="width:88%"></div></div><span class="mini-bar-val">88</span></div>
+            <div class="mini-bar-row"><span class="mini-bar-key">날씨</span><div class="mini-bar-track"><div class="mini-bar-fill" style="width:82%"></div></div><span class="mini-bar-val">82</span></div>
+            <div class="mini-bar-row"><span class="mini-bar-key">액세서리</span><div class="mini-bar-track"><div class="mini-bar-fill" style="width:58%;background:var(--amber)"></div></div><span class="mini-bar-val" style="color:var(--amber-dark)">58</span></div>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="items-strip" style="padding-top:14px;">
+          <div class="item-tile"><div class="item-box" style="background:#e8eaf2;"><span>👔</span><div class="i-ok"></div></div><div class="item-name">네이비<br>셔츠</div></div>
+          <div class="item-tile"><div class="item-box" style="background:#222;"><span>👖</span><div class="i-ok"></div></div><div class="item-name">블랙<br>슬랙스</div></div>
+          <div class="item-tile"><div class="item-box" style="background:#5a4535;"><span>🧥</span><div class="i-ok"></div></div><div class="item-name">브라운<br>자켓</div></div>
+          <div class="item-tile"><div class="item-box" style="background:#8B6C42;"><span>👞</span><div class="i-ok"></div></div><div class="item-name">카멜<br>더비</div></div>
+          <div class="item-tile"><div class="item-box" style="background:var(--bg2);border:1.5px dashed var(--border1);"><span style="font-size:14px;color:var(--amber-dark)">?</span><div class="i-miss"></div></div><div class="item-name" style="color:var(--amber-dark)">포켓치프<br>없음</div></div>
+        </div>
+        <div class="missing-banner">
+          <div style="font-size:12px;color:#633806;line-height:1.6;">포켓치프 하나면 액세서리 점수 58 → 88, 완성도 <b>82% → 92%</b></div>
+          <div class="missing-link">예산 맞는 상품 찾기 →</div>
+        </div>
+        <div class="card-actions">
+          <button class="ca-btn">다른 조합</button>
+          <button class="ca-btn main" onclick="goScreen('request')">코디 요청 →</button>
+        </div>
+      </div>
+
+      <div class="slbl">다른 상황이라면?</div>
+      <div class="alt-card" onclick="goScreen('request')">
+        <div style="display:flex;gap:2px;"><div style="width:30px;height:30px;border-radius:8px;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:14px;">💒</div></div>
+        <div style="flex:1;"><div style="font-size:14px;font-weight:600;color:var(--text1);">결혼식 하객</div><div style="font-size:11px;color:var(--text3);margin-top:1px;">세미 포멀</div></div>
+        <div style="font-size:13px;font-weight:600;color:var(--purple);">88% ›</div>
+      </div>
+      <div class="alt-card" onclick="goScreen('request')">
+        <div style="display:flex;gap:2px;"><div style="width:30px;height:30px;border-radius:8px;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:14px;">👨‍👩‍👦</div></div>
+        <div style="flex:1;"><div style="font-size:14px;font-weight:600;color:var(--text1);">학부모 모임</div><div style="font-size:11px;color:var(--text3);margin-top:1px;">캐주얼+단정</div></div>
+        <div style="font-size:13px;font-weight:600;color:var(--amber-dark);">67% ›</div>
+      </div>
+    </div>
+    <div class="bottomnav">
+      <button class="nav-tab on" onclick="goScreen('home')"><div class="nav-icon">🏠</div><span class="nav-lbl">홈</span></button>
+      <button class="nav-tab" onclick="goScreen('closet')"><div class="nav-icon">👔</div><span class="nav-lbl">내 옷장</span></button>
+      <button class="nav-tab" onclick="goScreen('request')"><div class="nav-icon">✨</div><span class="nav-lbl">코디 요청</span></button>
+      <button class="nav-tab" onclick="goScreen('feed')"><div class="nav-icon">♡</div><span class="nav-lbl">피드</span></button>
+    </div>
+  </div>
+
+  <!-- ── REQUEST ── -->
+  <div class="screen" id="sc-request">
+    <div class="topbar">
+      <div><div class="topbar-title">코디 요청</div><div class="topbar-sub">어떤 자리인가요?</div></div>
+    </div>
+    <div class="scroll">
+      <div class="slbl">자리 선택</div>
+      <div class="occ-scroll">
+        <div class="occ-card on" onclick="selOcc(this)"><div class="oc-emoji">💼</div><div class="oc-lbl">비즈니스</div><div class="oc-sub">미팅·발표</div></div>
+        <div class="occ-card" onclick="selOcc(this)"><div class="oc-emoji">💒</div><div class="oc-lbl">결혼식</div><div class="oc-sub">하객·포멀</div></div>
+        <div class="occ-card" onclick="selOcc(this)"><div class="oc-emoji">👨‍👩‍👦</div><div class="oc-lbl">학부모</div><div class="oc-sub">모임·행사</div></div>
+        <div class="occ-card" onclick="selOcc(this)"><div class="oc-emoji">🍽️</div><div class="oc-lbl">저녁 약속</div><div class="oc-sub">식사·접대</div></div>
+        <div class="occ-card" onclick="selOcc(this)"><div class="oc-emoji">🛍️</div><div class="oc-lbl">주말 외출</div><div class="oc-sub">데이트·쇼핑</div></div>
+        <div class="occ-card" onclick="selOcc(this)"><div class="oc-emoji">🏃</div><div class="oc-lbl">운동·야외</div><div class="oc-sub">스포티</div></div>
+      </div>
+      <div class="slbl" style="margin-top:18px;">날짜</div>
+      <div class="date-strip">
+        <button class="date-chip on" onclick="selDate(this)"><div class="dc-day">오늘</div><div class="dc-num">30</div></button>
+        <button class="date-chip" onclick="selDate(this)"><div class="dc-day">내일</div><div class="dc-num">1</div></button>
+        <button class="date-chip" onclick="selDate(this)"><div class="dc-day">토</div><div class="dc-num">3</div></button>
+        <button class="date-chip" onclick="selDate(this)"><div class="dc-day">일</div><div class="dc-num">4</div></button>
+        <button class="date-chip" onclick="selDate(this)"><div class="dc-day">월</div><div class="dc-num">5</div></button>
+      </div>
+      <div class="slbl" style="margin-top:18px;">코디 목표 점수</div>
+      <div class="score-box">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;">
+          <span style="font-size:13px;color:var(--text2);">완성도 목표</span>
+          <span class="score-big" id="req-score">75%</span>
+        </div>
+        <input type="range" min="50" max="95" value="75" step="5" style="width:100%;"
+          oninput="document.getElementById('req-score').textContent=this.value+'%'">
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text3);margin-top:6px;"><span>50%</span><span>95%</span></div>
+      </div>
+      <div class="slbl" style="margin-top:16px;">오늘의 무드</div>
+      <div class="chip-row">
+        <button class="pill soft on" onclick="this.classList.toggle('on')">단정하게</button>
+        <button class="pill soft" onclick="this.classList.toggle('on')">편안하게</button>
+        <button class="pill soft" onclick="this.classList.toggle('on')">트렌디하게</button>
+        <button class="pill soft" onclick="this.classList.toggle('on')">클래식하게</button>
+        <button class="pill soft" onclick="this.classList.toggle('on')">캐주얼하게</button>
+      </div>
+      <div class="slbl" style="margin-top:16px;">추가 요청 (선택)</div>
+      <textarea class="memo-input" rows="3" placeholder="예: 넥타이는 안 하고 싶어요&#10;배가 좀 나와서 커버되면 좋겠어요&#10;브라운 자켓 꼭 넣어주세요"></textarea>
+      <div style="font-size:11px;color:var(--text3);margin-top:6px;">체형(표준형·175cm)·퍼스널 컬러(웜톤) 자동 반영</div>
+    </div>
+    <div class="cta-footer">
+      <button class="btn-primary" onclick="goScreen('result')">AI 코디 추천 받기 →</button>
+    </div>
+    <div class="bottomnav">
+      <button class="nav-tab" onclick="goScreen('home')"><div class="nav-icon">🏠</div><span class="nav-lbl">홈</span></button>
+      <button class="nav-tab" onclick="goScreen('closet')"><div class="nav-icon">👔</div><span class="nav-lbl">내 옷장</span></button>
+      <button class="nav-tab on" onclick="goScreen('request')"><div class="nav-icon">✨</div><span class="nav-lbl">코디 요청</span></button>
+      <button class="nav-tab" onclick="goScreen('feed')"><div class="nav-icon">♡</div><span class="nav-lbl">피드</span></button>
+    </div>
+  </div>
+
+  <!-- ── RESULT ── -->
+  <div class="screen" id="sc-result">
+    <div style="padding:12px 20px;border-bottom:0.5px solid var(--border1);flex-shrink:0;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+        <button class="back-btn" onclick="goScreen('request')">←</button>
+        <span style="font-size:11px;background:var(--purple-light);color:var(--purple);padding:4px 12px;border-radius:20px;">비즈니스 미팅 · 오늘</span>
+      </div>
+      <div style="font-size:20px;font-weight:600;color:var(--text1);letter-spacing:-.4px;">네이비 & 브라운 코디</div>
+      <div style="font-size:12px;color:var(--text3);margin-top:3px;">표준형 체형 · 웜톤 · 단정한 무드 반영</div>
+    </div>
+    <div class="scroll" style="padding-top:0;">
+      <div class="score-area" style="padding:16px 0 12px;">
+        <div class="ring-wrap" style="width:80px;height:80px;">
+          <svg width="80" height="80" viewBox="0 0 80 80">
+            <circle cx="40" cy="40" r="32" fill="none" stroke="var(--bg2)" stroke-width="8"/>
+            <circle cx="40" cy="40" r="32" fill="none" stroke="var(--purple)" stroke-width="8"
+              stroke-dasharray="201" stroke-dashoffset="36" stroke-linecap="round"/>
+          </svg>
+          <div class="ring-center"><div class="ring-num">82%</div><div class="ring-lbl">완성도</div></div>
+        </div>
+        <div style="flex:1;">
+          <div style="font-size:12px;font-weight:600;color:var(--text1);margin-bottom:8px;">항목별 점수</div>
+          <div class="mini-bar-row"><span class="mini-bar-key">색상 조화</span><div class="mini-bar-track"><div class="mini-bar-fill" style="width:90%"></div></div><span class="mini-bar-val">90</span></div>
+          <div class="mini-bar-row"><span class="mini-bar-key">체형 핏</span><div class="mini-bar-track"><div class="mini-bar-fill" style="width:88%"></div></div><span class="mini-bar-val">88</span></div>
+          <div class="mini-bar-row"><span class="mini-bar-key">날씨 적합</span><div class="mini-bar-track"><div class="mini-bar-fill" style="width:82%"></div></div><span class="mini-bar-val">82</span></div>
+          <div class="mini-bar-row"><span class="mini-bar-key">TPO</span><div class="mini-bar-track"><div class="mini-bar-fill" style="width:85%"></div></div><span class="mini-bar-val">85</span></div>
+          <div class="mini-bar-row"><span class="mini-bar-key">액세서리</span><div class="mini-bar-track"><div class="mini-bar-fill" style="width:58%;background:var(--amber)"></div></div><span class="mini-bar-val" style="color:var(--amber-dark)">58</span></div>
+        </div>
+      </div>
+      <div style="height:0.5px;background:var(--border1);"></div>
+      <div style="font-size:12px;font-weight:600;color:var(--text1);margin:14px 0 8px;">구성 아이템</div>
+      <div class="items-strip" style="padding:0 0 14px;">
+        <div class="item-tile"><div class="item-box" style="background:#e8eaf2;"><span>👔</span><div class="i-ok"></div></div><div class="item-name">네이비<br>셔츠</div></div>
+        <div class="item-tile"><div class="item-box" style="background:#222;"><span>👖</span><div class="i-ok"></div></div><div class="item-name">블랙<br>슬랙스</div></div>
+        <div class="item-tile"><div class="item-box" style="background:#5a4535;"><span>🧥</span><div class="i-ok"></div></div><div class="item-name">브라운<br>자켓</div></div>
+        <div class="item-tile"><div class="item-box" style="background:#8B6C42;"><span>👞</span><div class="i-ok"></div></div><div class="item-name">카멜<br>더비</div></div>
+        <div class="item-tile"><div class="item-box" style="background:var(--bg2);border:1.5px dashed var(--border1);"><span style="font-size:14px;color:var(--amber-dark)">?</span><div class="i-miss"></div></div><div class="item-name" style="color:var(--amber-dark)">포켓치프<br>없음</div></div>
+      </div>
+      <div class="ai-explain">
+        <div class="ai-explain-top">
+          <div style="font-size:10px;color:var(--text3);margin-bottom:4px;">AI 스타일 해설</div>
+          <div style="font-size:13px;color:var(--text1);line-height:1.7;">표준 체형엔 구조적 자켓이 어울려요. 네이비+브라운은 웜톤에 최적화된 조합으로, 비즈니스 미팅에서 신뢰감을 줘요.</div>
+        </div>
+        <div style="padding:12px 16px;">
+          <div style="font-size:11px;color:var(--amber-dark);margin-bottom:5px;">완성도 82% → 92% 올리려면</div>
+          <div style="font-size:13px;color:var(--text1);line-height:1.6;">브라운·카멜 포켓치프 추가 시 액세서리 58 → 88</div>
+          <div class="missing-link">예산 맞는 상품 찾기 →</div>
+        </div>
+      </div>
+      <div class="slbl">다른 조합</div>
+      <div class="alt-card"><div style="flex:1;"><div style="font-size:14px;font-weight:600;color:var(--text1);">스마트 캐주얼 버전</div><div style="font-size:11px;color:var(--text3);margin-top:1px;">자켓 없이 가볍게</div></div><div style="font-size:13px;font-weight:600;color:var(--purple);">78% ›</div></div>
+      <div class="result-actions" style="margin-top:12px;border:0.5px solid var(--border1);border-radius:var(--radius-md);overflow:hidden;">
+        <button class="ra-btn" onclick="goScreen('request')">다시 요청</button>
+        <button class="ra-btn" style="border-left:0.5px solid var(--border1);" onclick="goScreen('feed')">피드 공유</button>
+        <button class="ra-btn main" style="border-left:0.5px solid var(--border1);">착용 완료 ↗</button>
+      </div>
+    </div>
+    <div class="bottomnav">
+      <button class="nav-tab" onclick="goScreen('home')"><div class="nav-icon">🏠</div><span class="nav-lbl">홈</span></button>
+      <button class="nav-tab" onclick="goScreen('closet')"><div class="nav-icon">👔</div><span class="nav-lbl">내 옷장</span></button>
+      <button class="nav-tab on"><div class="nav-icon">✨</div><span class="nav-lbl">코디 요청</span></button>
+      <button class="nav-tab" onclick="goScreen('feed')"><div class="nav-icon">♡</div><span class="nav-lbl">피드</span></button>
+    </div>
+  </div>
+
+  <!-- ── CLOSET ── -->
+  <div class="screen" id="sc-closet">
+    <div class="topbar">
+      <div><div class="topbar-title">내 옷장</div></div>
+      <button onclick="goScreen('closet')" style="font-size:12px;padding:7px 14px;background:var(--purple);color:white;border:none;border-radius:20px;cursor:pointer;font-family:inherit;">+ 추가</button>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:0 20px;flex-shrink:0;">
+      <div style="background:var(--bg2);border-radius:12px;padding:12px;text-align:center;"><div style="font-size:20px;font-weight:600;color:var(--text1);">8</div><div style="font-size:10px;color:var(--text3);">총 아이템</div></div>
+      <div style="background:var(--bg2);border-radius:12px;padding:12px;text-align:center;"><div style="font-size:20px;font-weight:600;color:var(--text1);">74%</div><div style="font-size:10px;color:var(--text3);">평균 완성도</div></div>
+      <div style="background:var(--bg2);border-radius:12px;padding:12px;text-align:center;"><div style="font-size:20px;font-weight:600;color:var(--amber-dark);">3</div><div style="font-size:10px;color:var(--text3);">부족 아이템</div></div>
+    </div>
+    <div style="display:flex;gap:6px;overflow-x:auto;padding:12px 20px 8px;">
+      <button class="pill on" onclick="selFilter(this)">전체</button>
+      <button class="pill" onclick="selFilter(this)">상의</button>
+      <button class="pill" onclick="selFilter(this)">하의</button>
+      <button class="pill" onclick="selFilter(this)">아우터</button>
+      <button class="pill" onclick="selFilter(this)">신발</button>
+    </div>
+    <div class="scroll" style="padding-top:8px;">
+      <div class="item-grid">
+        <div class="closet-cell"><div class="cc-badge">자주 착용</div><span style="font-size:22px;">👔</span><span style="font-size:10px;color:var(--text3);">네이비 셔츠</span><div class="cc-dot" style="background:#1a2a4a;"></div></div>
+        <div class="closet-cell"><span style="font-size:22px;">👕</span><span style="font-size:10px;color:var(--text3);">화이트 티</span><div class="cc-dot" style="background:#f0ece4;border-color:#ccc;"></div></div>
+        <div class="closet-cell"><span style="font-size:22px;">🧥</span><span style="font-size:10px;color:var(--text3);">브라운 자켓</span><div class="cc-dot" style="background:#5a4535;"></div></div>
+        <div class="closet-cell"><span style="font-size:22px;">👖</span><span style="font-size:10px;color:var(--text3);">블랙 슬랙스</span><div class="cc-dot" style="background:#1a1a1a;"></div></div>
+        <div class="closet-cell"><span style="font-size:22px;">👖</span><span style="font-size:10px;color:var(--text3);">다크 청바지</span><div class="cc-dot" style="background:#2a3a5a;"></div></div>
+        <div class="closet-cell"><span style="font-size:22px;">🧥</span><span style="font-size:10px;color:var(--text3);">네이비 코트</span><div class="cc-dot" style="background:#1a2a4a;"></div></div>
+        <div class="closet-cell"><span style="font-size:22px;">👞</span><span style="font-size:10px;color:var(--text3);">카멜 더비</span><div class="cc-dot" style="background:#8B6C42;"></div></div>
+        <div class="closet-cell"><span style="font-size:22px;">👟</span><span style="font-size:10px;color:var(--text3);">화이트 스니커</span><div class="cc-dot" style="background:#f0ece4;border-color:#ccc;"></div></div>
+        <div class="closet-cell closet-add">+</div>
+      </div>
+      <div class="slbl" style="margin-top:20px;">부족 아이템 알림</div>
+      <div style="border:0.5px solid var(--border1);border-left:3px solid var(--amber);border-radius:10px;padding:12px 14px;margin-bottom:8px;"><div style="font-size:13px;font-weight:600;color:var(--text1);margin-bottom:2px;">그레이 니트 없음</div><div style="font-size:12px;color:var(--text2);">추가 시 가을 코디 완성도 +18%</div></div>
+      <div style="border:0.5px solid var(--border1);border-left:3px solid var(--amber);border-radius:10px;padding:12px 14px;margin-bottom:8px;"><div style="font-size:13px;font-weight:600;color:var(--text1);margin-bottom:2px;">화이트 슬랙스 없음</div><div style="font-size:12px;color:var(--text2);">추가 시 스마트 캐주얼 완성도 +12%</div></div>
+      <div style="border:0.5px solid var(--border1);border-left:3px solid var(--amber);border-radius:10px;padding:12px 14px;"><div style="font-size:13px;font-weight:600;color:var(--text1);margin-bottom:2px;">포켓치프 없음</div><div style="font-size:12px;color:var(--text2);">추가 시 비즈니스 코디 완성도 +10%</div></div>
+    </div>
+    <div class="bottomnav">
+      <button class="nav-tab" onclick="goScreen('home')"><div class="nav-icon">🏠</div><span class="nav-lbl">홈</span></button>
+      <button class="nav-tab on"><div class="nav-icon">👔</div><span class="nav-lbl">내 옷장</span></button>
+      <button class="nav-tab" onclick="goScreen('request')"><div class="nav-icon">✨</div><span class="nav-lbl">코디 요청</span></button>
+      <button class="nav-tab" onclick="goScreen('feed')"><div class="nav-icon">♡</div><span class="nav-lbl">피드</span></button>
+    </div>
+  </div>
+
+  <!-- ── FEED ── -->
+  <div class="screen" id="sc-feed">
+    <div class="topbar">
+      <div><div class="topbar-title">피드</div><div class="topbar-sub">30-40대 남성 코디</div></div>
+      <button style="font-size:12px;padding:7px 14px;background:var(--purple);color:white;border:none;border-radius:20px;cursor:pointer;font-family:inherit;">내 코디 공유</button>
+    </div>
+    <div class="scroll">
+      <div class="feed-post" style="margin-top:16px;">
+        <div style="padding:14px 16px 10px;display:flex;align-items:center;gap:10px;">
+          <div style="width:36px;height:36px;border-radius:50%;background:var(--purple-light);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:var(--purple);">D</div>
+          <div style="flex:1;"><div style="font-size:13px;font-weight:600;color:var(--text1);">Danny</div><div style="font-size:11px;color:var(--text3);">비즈니스 미팅 · 방금</div></div>
+          <div style="font-size:12px;background:#EAF3DE;color:#3B6D11;padding:4px 10px;border-radius:20px;">82%</div>
+        </div>
+        <div style="padding:0 16px 12px;display:flex;gap:8px;">
+          <div style="flex:1;background:var(--bg2);border-radius:12px;aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:36px;">👔</div>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <div style="background:var(--bg2);border-radius:10px;width:72px;height:52px;display:flex;align-items:center;justify-content:center;font-size:22px;">👖</div>
+            <div style="background:var(--bg2);border-radius:10px;width:72px;height:52px;display:flex;align-items:center;justify-content:center;font-size:22px;">🧥</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <div style="background:var(--bg2);border-radius:10px;width:72px;height:52px;display:flex;align-items:center;justify-content:center;font-size:22px;">👞</div>
+            <div style="background:#FAEEDA;border-radius:10px;width:72px;height:52px;display:flex;align-items:center;justify-content:center;font-size:10px;color:#633806;text-align:center;padding:4px;">포켓치프<br>추가 예정</div>
+          </div>
+        </div>
+        <div style="padding:0 16px 14px;font-size:13px;color:var(--text2);line-height:1.6;">포켓치프만 있었으면 92%였는데 😅</div>
+        <div style="border-top:0.5px solid var(--border1);display:flex;">
+          <button id="my-like" onclick="toggleLike()" style="flex:1;padding:12px;border:none;background:transparent;cursor:pointer;font-size:13px;color:var(--text3);font-family:inherit;display:flex;align-items:center;justify-content:center;gap:5px;"><span id="my-like-icon">♡</span><span id="my-like-cnt">0</span></button>
+          <div style="width:0.5px;background:var(--border1);"></div>
+          <button style="flex:1;padding:12px;border:none;background:transparent;cursor:pointer;font-size:13px;color:var(--text3);font-family:inherit;">댓글</button>
+        </div>
+      </div>
+
+      <div class="slbl">다른 사람들</div>
+      <div>
+        <div class="feed-item">
+          <div class="feed-av">J</div>
+          <div style="flex:1;">
+            <div style="font-size:12px;font-weight:600;color:var(--text1);">Junho · 결혼식 하객 · 88%</div>
+            <div style="display:flex;gap:4px;margin:5px 0;">
+              <div style="background:var(--bg2);border-radius:8px;width:38px;height:38px;display:flex;align-items:center;justify-content:center;font-size:16px;">🤵</div>
+              <div style="background:var(--bg2);border-radius:8px;width:38px;height:38px;display:flex;align-items:center;justify-content:center;font-size:16px;">👔</div>
+              <div style="background:var(--bg2);border-radius:8px;width:38px;height:38px;display:flex;align-items:center;justify-content:center;font-size:16px;">👞</div>
+            </div>
+            <div style="font-size:12px;color:var(--text2);line-height:1.5;">신랑보다 잘 입으면 안 되니까 조심했어요 😂</div>
+            <div style="font-size:11px;color:var(--text3);margin-top:3px;">2시간 전</div>
+          </div>
+          <button class="like-btn" onclick="likeThis(this)"><span style="font-size:16px;color:var(--text3);">♡</span><span style="font-size:10px;color:var(--text3);">38</span></button>
+        </div>
+        <div class="feed-item">
+          <div class="feed-av">P</div>
+          <div style="flex:1;">
+            <div style="font-size:12px;font-weight:600;color:var(--text1);">Parkjun · 저녁 약속 · 91%</div>
+            <div style="display:flex;gap:4px;margin:5px 0;">
+              <div style="background:var(--bg2);border-radius:8px;width:38px;height:38px;display:flex;align-items:center;justify-content:center;font-size:16px;">👔</div>
+              <div style="background:var(--bg2);border-radius:8px;width:38px;height:38px;display:flex;align-items:center;justify-content:center;font-size:16px;">👖</div>
+              <div style="background:var(--bg2);border-radius:8px;width:38px;height:38px;display:flex;align-items:center;justify-content:center;font-size:16px;">🧣</div>
+            </div>
+            <div style="font-size:12px;color:var(--text2);line-height:1.5;">머플러 하나 추가했을 뿐인데 91%가 나왔어요.</div>
+            <div style="font-size:11px;color:var(--text3);margin-top:3px;">어제</div>
+          </div>
+          <button class="like-btn" onclick="likeThis(this)"><span style="font-size:16px;color:var(--text3);">♡</span><span style="font-size:10px;color:var(--text3);">55</span></button>
+        </div>
+      </div>
+    </div>
+    <div class="bottomnav">
+      <button class="nav-tab" onclick="goScreen('home')"><div class="nav-icon">🏠</div><span class="nav-lbl">홈</span></button>
+      <button class="nav-tab" onclick="goScreen('closet')"><div class="nav-icon">👔</div><span class="nav-lbl">내 옷장</span></button>
+      <button class="nav-tab" onclick="goScreen('request')"><div class="nav-icon">✨</div><span class="nav-lbl">코디 요청</span></button>
+      <button class="nav-tab on"><div class="nav-icon">♡</div><span class="nav-lbl">피드</span></button>
+    </div>
+  </div>
+
+  <!-- ── PROFILE ── -->
+  <div class="screen" id="sc-profile">
+    <div class="topbar">
+      <div><div class="topbar-title">내 프로필</div></div>
+      <button onclick="goScreen('home')" style="border:none;background:transparent;font-size:18px;cursor:pointer;color:var(--text2);">✕</button>
+    </div>
+    <div class="scroll">
+      <div style="text-align:center;padding:24px 0 20px;">
+        <div style="width:72px;height:72px;border-radius:50%;background:var(--purple-light);display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:600;color:var(--purple);margin:0 auto 10px;">D</div>
+        <div style="font-size:18px;font-weight:600;color:var(--text1);">Danny</div>
+        <div style="font-size:12px;color:var(--text3);margin-top:2px;">코디 목표 75% · 8벌 등록</div>
+      </div>
+      <div class="slbl">체형 & 외형 정보</div>
+      <div class="profile-section">
+        <div class="profile-row"><span style="font-size:13px;color:var(--text2);">체형</span><span style="font-size:13px;font-weight:600;color:var(--text1);">표준형 · 175cm</span></div>
+        <div class="profile-row"><span style="font-size:13px;color:var(--text2);">얼굴형</span><span style="font-size:13px;font-weight:600;color:var(--text1);">타원형</span></div>
+        <div class="profile-row"><span style="font-size:13px;color:var(--text2);">퍼스널 컬러</span><span style="font-size:13px;font-weight:600;color:var(--text1);">웜톤</span></div>
+      </div>
+      <div class="slbl">스타일 취향</div>
+      <div class="profile-section">
+        <div class="profile-row"><span style="font-size:13px;color:var(--text2);">선호 스타일</span><span style="font-size:12px;color:var(--text1);">비즈니스 캐주얼·클래식</span></div>
+        <div class="profile-row"><span style="font-size:13px;color:var(--text2);">자주 가는 자리</span><span style="font-size:12px;color:var(--text1);">사무실·외부 미팅</span></div>
+        <div class="profile-row"><span style="font-size:13px;color:var(--text2);">코디 목표 점수</span><span style="font-size:13px;font-weight:600;color:var(--purple);">75%</span></div>
+      </div>
+      <button style="width:100%;padding:14px;margin-top:8px;background:transparent;border:1px solid var(--border1);border-radius:var(--radius-md);font-size:14px;color:var(--text2);cursor:pointer;font-family:inherit;">프로필 수정</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ── Navigation ──
+function goScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('sc-' + id).classList.add('active');
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('on'));
+  const map = { home:0, closet:1, request:2, result:2, feed:3, profile:-1 };
+  const idx = map[id];
+  if (idx >= 0) {
+    const sc = document.getElementById('sc-' + id);
+    const tabs = sc.querySelectorAll('.nav-tab');
+    if (tabs[idx]) tabs[idx].classList.add('on');
+  }
+}
+
+// ── Interactions ──
+function selOcc(el) {
+  el.closest('.occ-scroll').querySelectorAll('.occ-card').forEach(c => c.classList.remove('on'));
+  el.classList.add('on');
+}
+function selDate(el) {
+  el.closest('.date-strip').querySelectorAll('.date-chip').forEach(c => c.classList.remove('on'));
+  el.classList.add('on');
+}
+function selFilter(el) {
+  el.parentElement.querySelectorAll('.pill').forEach(c => c.classList.remove('on'));
+  el.classList.add('on');
+}
+let myLiked = false;
+function toggleLike() {
+  myLiked = !myLiked;
+  document.getElementById('my-like-icon').textContent = myLiked ? '♥' : '♡';
+  document.getElementById('my-like-icon').style.color = myLiked ? '#D4537E' : '';
+  document.getElementById('my-like-cnt').textContent = myLiked ? '1' : '0';
+}
+function likeThis(btn) {
+  const icon = btn.querySelector('span:first-child');
+  const cnt = btn.querySelector('span:last-child');
+  const liked = icon.style.color === 'rgb(212, 83, 126)';
+  icon.style.color = liked ? '' : '#D4537E';
+  icon.textContent = liked ? '♡' : '♥';
+  cnt.textContent = liked ? (parseInt(cnt.textContent) - 1) : (parseInt(cnt.textContent) + 1);
+}
+
+// ── Onboarding steps ──
+const steps = [
+  {
+    num:'STEP 1', title:'체형 정보를\n알려주세요',
+    sub:'체형에 맞는 핏을 추천하는 데 사용해요.',
+    content: `
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;">
+        <div class="opt-card on" onclick="selOpt(this)"><div style="font-size:24px;margin-bottom:6px;">🧍</div><div class="opt-lbl">표준형</div><div class="opt-sub">균형 잡힌 체형</div></div>
+        <div class="opt-card" onclick="selOpt(this)"><div style="font-size:24px;margin-bottom:6px;">💪</div><div class="opt-lbl">역삼각형</div><div class="opt-sub">넓은 어깨·슬림 허리</div></div>
+        <div class="opt-card" onclick="selOpt(this)"><div style="font-size:24px;margin-bottom:6px;">🔺</div><div class="opt-lbl">삼각형</div><div class="opt-sub">좁은 어깨·넓은 하체</div></div>
+        <div class="opt-card" onclick="selOpt(this)"><div style="font-size:24px;margin-bottom:6px;">📏</div><div class="opt-lbl">직사각형</div><div class="opt-sub">균일한 너비</div></div>
+      </div>
+      <div style="display:flex;gap:10px;">
+        <div style="flex:1;"><div style="font-size:12px;color:var(--text3);margin-bottom:6px;">키</div><input style="width:100%;padding:12px 14px;border:1px solid var(--border1);border-radius:10px;font-size:16px;font-weight:600;color:var(--text1);background:var(--bg);font-family:inherit;" type="number" value="175"><div style="font-size:11px;color:var(--text3);margin-top:4px;text-align:right;">cm</div></div>
+        <div style="flex:1;"><div style="font-size:12px;color:var(--text3);margin-bottom:6px;">몸무게 (선택)</div><input style="width:100%;padding:12px 14px;border:1px solid var(--border1);border-radius:10px;font-size:16px;font-weight:600;color:var(--text1);background:var(--bg);font-family:inherit;" type="number" value="75"><div style="font-size:11px;color:var(--text3);margin-top:4px;text-align:right;">kg</div></div>
+      </div>`
+  },
+  {
+    num:'STEP 2', title:'얼굴형을\n선택해주세요',
+    sub:'넥라인·칼라 추천에 활용해요.',
+    content: `
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:4px;">
+        <div class="opt-card on" onclick="selOpt(this)"><div style="font-size:22px;margin-bottom:4px;">🥚</div><div class="opt-lbl">타원형</div><div class="opt-sub">균형 잡힌</div></div>
+        <div class="opt-card" onclick="selOpt(this)"><div style="font-size:22px;margin-bottom:4px;">⬜</div><div class="opt-lbl">직사각형</div><div class="opt-sub">길고 각진</div></div>
+        <div class="opt-card" onclick="selOpt(this)"><div style="font-size:22px;margin-bottom:4px;">🔻</div><div class="opt-lbl">하트형</div><div class="opt-sub">넓은 이마</div></div>
+        <div class="opt-card" onclick="selOpt(this)"><div style="font-size:22px;margin-bottom:4px;">⭕</div><div class="opt-lbl">둥근형</div><div class="opt-sub">부드러운</div></div>
+        <div class="opt-card" onclick="selOpt(this)"><div style="font-size:22px;margin-bottom:4px;">🔷</div><div class="opt-lbl">각진형</div><div class="opt-sub">강한 턱선</div></div>
+        <div class="opt-card" onclick="selOpt(this)"><div style="font-size:22px;margin-bottom:4px;">🔺</div><div class="opt-lbl">역삼각형</div><div class="opt-sub">V라인 턱</div></div>
+      </div>`
+  },
+  {
+    num:'STEP 3', title:'피부톤을\n알려주세요',
+    sub:'나에게 어울리는 색상 팔레트를 추천해요.',
+    content: `
+      <div style="margin-bottom:16px;font-size:13px;font-weight:600;color:var(--text1);">피부 톤</div>
+      <div class="tone-row">
+        <div class="tone-dot" onclick="selTone(this)" style="background:#FDEBD8;"></div>
+        <div class="tone-dot on" onclick="selTone(this)" style="background:#F5CBA7;"></div>
+        <div class="tone-dot" onclick="selTone(this)" style="background:#E8B88A;"></div>
+        <div class="tone-dot" onclick="selTone(this)" style="background:#D4956A;"></div>
+        <div class="tone-dot" onclick="selTone(this)" style="background:#B8734A;"></div>
+        <div class="tone-dot" onclick="selTone(this)" style="background:#8B5230;"></div>
+      </div>
+      <div style="margin:16px 0 12px;font-size:13px;font-weight:600;color:var(--text1);">퍼스널 컬러</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div class="opt-card on" onclick="selOpt(this)"><div style="display:flex;gap:4px;justify-content:center;margin-bottom:8px;"><div style="width:16px;height:16px;border-radius:50%;background:#FAC775;"></div><div style="width:16px;height:16px;border-radius:50%;background:#EF9F27;"></div><div style="width:16px;height:16px;border-radius:50%;background:#8B6C42;"></div></div><div class="opt-lbl">웜톤</div><div class="opt-sub">황금빛·따뜻한</div></div>
+        <div class="opt-card" onclick="selOpt(this)"><div style="display:flex;gap:4px;justify-content:center;margin-bottom:8px;"><div style="width:16px;height:16px;border-radius:50%;background:#AFA9EC;"></div><div style="width:16px;height:16px;border-radius:50%;background:#85B7EB;"></div><div style="width:16px;height:16px;border-radius:50%;background:#5DCAA5;"></div></div><div class="opt-lbl">쿨톤</div><div class="opt-sub">핑크·블루·차가운</div></div>
+        <div class="opt-card" onclick="selOpt(this)"><div style="display:flex;gap:4px;justify-content:center;margin-bottom:8px;"><div style="width:16px;height:16px;border-radius:50%;background:#D3D1C7;"></div><div style="width:16px;height:16px;border-radius:50%;background:#888780;"></div></div><div class="opt-lbl">뉴트럴</div><div class="opt-sub">웜·쿨 중간</div></div>
+        <div class="opt-card" onclick="selOpt(this)"><div style="font-size:18px;margin-bottom:8px;">🤷</div><div class="opt-lbl">모르겠어요</div><div class="opt-sub">AI가 추론해요</div></div>
+      </div>`
+  },
+  {
+    num:'STEP 4', title:'선호 스타일을\n골라주세요',
+    sub:'여러 개 선택 가능해요.',
+    content: `
+      <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:20px;">
+        <button class="pill soft on" onclick="this.classList.toggle('on')">비즈니스 캐주얼</button>
+        <button class="pill soft" onclick="this.classList.toggle('on')">미니멀</button>
+        <button class="pill soft on" onclick="this.classList.toggle('on')">클래식</button>
+        <button class="pill soft" onclick="this.classList.toggle('on')">스트리트</button>
+        <button class="pill soft on" onclick="this.classList.toggle('on')">스마트 캐주얼</button>
+        <button class="pill soft" onclick="this.classList.toggle('on')">스포티</button>
+        <button class="pill soft" onclick="this.classList.toggle('on')">포멀</button>
+        <button class="pill soft" onclick="this.classList.toggle('on')">트렌디</button>
+      </div>
+      <div style="font-size:13px;font-weight:600;color:var(--text1);margin-bottom:10px;">자주 가는 자리</div>
+      <div style="display:flex;flex-wrap:wrap;gap:7px;">
+        <button class="pill soft on" onclick="this.classList.toggle('on')">사무실·미팅</button>
+        <button class="pill soft on" onclick="this.classList.toggle('on')">비즈니스 외부</button>
+        <button class="pill soft" onclick="this.classList.toggle('on')">결혼식 하객</button>
+        <button class="pill soft on" onclick="this.classList.toggle('on')">학부모 모임</button>
+        <button class="pill soft" onclick="this.classList.toggle('on')">데이트</button>
+        <button class="pill soft" onclick="this.classList.toggle('on')">주말 외출</button>
+      </div>`
+  },
+  {
+    num:'STEP 5', title:'코디 목표 점수를\n설정해요',
+    sub:'이 점수 미만이면 부족 아이템을 추천해요.',
+    content: `
+      <div style="background:var(--bg2);border-radius:16px;padding:20px;margin-bottom:16px;text-align:center;">
+        <div style="font-size:48px;font-weight:700;color:var(--purple);letter-spacing:-2px;" id="ob-score-num">75%</div>
+        <div style="font-size:12px;color:var(--text3);margin-bottom:16px;">목표 완성도</div>
+        <input type="range" min="50" max="95" value="75" step="5" style="width:100%;"
+          oninput="document.getElementById('ob-score-num').textContent=this.value+'%';updateOBDesc(this.value)">
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text3);margin-top:8px;"><span>50%</span><span>95%</span></div>
+      </div>
+      <div id="ob-desc" style="background:var(--bg2);border-radius:12px;padding:14px;font-size:13px;color:var(--text2);line-height:1.6;">
+        75% 이상 코디를 우선 추천해요. 미만이면 부족 아이템을 가성비 순으로 안내해요.
+      </div>`
+  }
+];
+
+let obStep = 0;
+function renderOBStep() {
+  const s = steps[obStep];
+  document.getElementById('ob-content').innerHTML = `
+    <div style="font-size:11px;color:var(--text3);letter-spacing:.1em;margin-bottom:8px;">${s.num}</div>
+    <div style="font-size:24px;font-weight:700;color:var(--text1);letter-spacing:-.6px;line-height:1.3;margin-bottom:8px;white-space:pre-line;">${s.title}</div>
+    <div style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:24px;">${s.sub}</div>
+    ${s.content}
+  `;
+  const pct = [16,33,50,67,84,100];
+  document.getElementById('ob-bar').style.width = pct[obStep] + '%';
+  document.getElementById('ob-counter').textContent = (obStep+1) + ' / ' + steps.length;
+  const dots = document.getElementById('ob-dots').children;
+  for(let i=0;i<dots.length;i++){
+    dots[i].style.width = i===obStep ? '18px' : '6px';
+    dots[i].style.background = i===obStep ? 'var(--purple)' : 'var(--bg2)';
+  }
+  const footer = document.getElementById('ob-footer');
+  if(obStep === 0) {
+    footer.innerHTML = `<button class="btn-primary" onclick="obNext()">다음 →</button>`;
+  } else if(obStep < steps.length-1) {
+    footer.innerHTML = `<div style="display:flex;gap:10px;"><button onclick="obBack()" style="padding:15px 20px;background:transparent;border:1px solid var(--border1);border-radius:var(--radius-md);font-size:15px;cursor:pointer;font-family:inherit;color:var(--text2);">←</button><button class="btn-primary" style="flex:1;" onclick="obNext()">다음 →</button></div>`;
+  } else {
+    footer.innerHTML = `<div style="display:flex;gap:10px;"><button onclick="obBack()" style="padding:15px 20px;background:transparent;border:1px solid var(--border1);border-radius:var(--radius-md);font-size:15px;cursor:pointer;font-family:inherit;color:var(--text2);">←</button><button class="btn-primary" style="flex:1;" onclick="finishOB()">시작하기 🎉</button></div>`;
+  }
+}
+function obNext() { if(obStep < steps.length-1){ obStep++; renderOBStep(); } }
+function obBack() { if(obStep > 0){ obStep--; renderOBStep(); } }
+function finishOB() {
+  document.getElementById('onboarding').style.display = 'none';
+  document.getElementById('main-app').style.display = 'flex';
+}
+function selOpt(el) {
+  const grid = el.closest('.opt-grid, div[style*="grid"]');
+  if(grid) grid.querySelectorAll('.opt-card').forEach(c=>c.classList.remove('on'));
+  el.classList.add('on');
+}
+function selTone(el) {
+  document.querySelectorAll('.tone-dot').forEach(d=>d.classList.remove('on'));
+  el.classList.add('on');
+}
+function updateOBDesc(v) {
+  const descs = {
+    50:'기본 추천 모드. 옷장에 있는 것 위주로 최선의 조합을 보여줘요.',
+    60:'색상·스타일 기본 매칭이 되면 추천해요.',
+    70:'색상·핏·스타일이 어느 정도 맞아야 해요.',
+    75:'75% 이상 코디를 우선 추천해요. 미만이면 부족 아이템을 안내해요.',
+    80:'높은 기준. 색상·체형·TPO 모두 잘 맞아야 해요.',
+    90:'거의 완벽한 코디만 추천. 옷장이 잘 갖춰져야 해요.',
+    95:'완벽주의 모드. 쇼핑 제안이 자주 와요.'
+  };
+  const el = document.getElementById('ob-desc');
+  if(el) el.textContent = descs[v] || descs[75];
+}
+
+// ── Boot ──
+window.addEventListener('DOMContentLoaded', () => {
+  renderOBStep();
+  setTimeout(() => {
+    document.getElementById('splash').style.opacity = '0';
+    setTimeout(() => {
+      document.getElementById('splash').style.display = 'none';
+      document.getElementById('onboarding').style.display = 'flex';
+    }, 500);
+  }, 1200);
+});
+</script>
+</body>
+</html>
