@@ -47,7 +47,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Pretendard','Apple SD Gothic 
 .ibox{width:54px;height:54px;border-radius:13px;border:0.5px solid var(--bd);display:flex;align-items:center;justify-content:center;font-size:24px;position:relative;overflow:hidden;}
 .ibox img{width:100%;height:100%;object-fit:cover;}
 .iok{position:absolute;bottom:-4px;right:-4px;width:16px;height:16px;background:var(--gr);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;font-weight:700;}
-.imiss{position:absolute;bottom:-4px;right:-4px;width:16px;height:16px;background:var(--am);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:700;}
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;display:none;align-items:flex-end;justify-content:center;}
 .overlay.open{display:flex;}
 .sheet{width:100%;max-width:430px;background:var(--bg);border-radius:26px 26px 0 0;padding:0 0 calc(20px + env(safe-area-inset-bottom,0px));max-height:94vh;display:flex;flex-direction:column;}
@@ -88,55 +87,46 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Pretendard','Apple SD Gothic 
 .ob-foot{position:absolute;bottom:0;left:0;right:0;padding:12px 22px calc(12px + env(safe-area-inset-bottom,0px));background:var(--bg);border-top:0.5px solid var(--bd);}
 .prow{display:flex;justify-content:space-between;align-items:center;padding:13px 16px;border-bottom:0.5px solid var(--bd);}
 .prow:last-child{border-bottom:none;}
-/* Weather widget */
-.weather-card{background:linear-gradient(135deg,#1a2a4a 0%,#2a3a6a 100%);border-radius:16px;padding:16px;margin-bottom:12px;color:#fff;position:relative;overflow:hidden;}
-.weather-card.warm{background:linear-gradient(135deg,#5a3010 0%,#8a5020 100%);}
-.weather-card.cloudy{background:linear-gradient(135deg,#3a3a4a 0%,#5a5a6a 100%);}
-.weather-card.rainy{background:linear-gradient(135deg,#1a3a5a 0%,#2a4a6a 100%);}
-/* Calendar */
-.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:16px;}
-.cal-day{aspect-ratio:1;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:11px;cursor:pointer;position:relative;border:0.5px solid transparent;}
-.cal-day.has-outfit{background:var(--pl);border-color:var(--p);}
-.cal-day.has-outfit .cal-num{color:var(--p);font-weight:600;}
-.cal-day.today{border-color:var(--p);}
-.cal-day.today .cal-num{color:var(--p);font-weight:700;}
-.cal-num{font-size:13px;color:var(--t1);}
-.cal-dot{width:5px;height:5px;border-radius:50%;background:var(--p);margin-top:2px;}
-/* History item */
-.hist-item{display:flex;gap:12px;align-items:center;padding:10px 0;border-bottom:0.5px solid var(--bd);cursor:pointer;}
-.hist-item:last-child{border-bottom:none;}
-.hist-thumb{width:48px;height:48px;border-radius:10px;background:var(--bg2);overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:20px;}
-.hist-thumb img{width:100%;height:100%;object-fit:cover;}
-/* Score badge */
-.score-badge{padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;}
-.score-hi{background:var(--gl);color:var(--gr);}
-.score-mid{background:#FFF3CD;color:#856404;}
-.score-lo{background:#FCF3F3;color:#8B1111;}
-/* method cards */
-.mcard{border:1.5px solid var(--bd);border-radius:18px;padding:18px 12px;cursor:pointer;text-align:center;background:var(--bg);position:relative;transition:all .15s;}
-.mcard:active{opacity:.8;}
-.mcard.hi{border-color:var(--p);background:var(--pl);}
-.mcard.hi .mclbl{color:var(--p);}
-.mcbadge{position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--p);color:#fff;font-size:10px;padding:3px 10px;border-radius:0 0 10px 10px;white-space:nowrap;}
-/* Shopping suggest */
-.shop-item{display:flex;align-items:center;gap:10px;padding:10px 14px;border:0.5px solid var(--bd);border-radius:12px;margin-bottom:8px;cursor:pointer;background:var(--bg);}
-.shop-item:active{background:var(--bg2);}
-/* Notification badge */
-.notif-dot{position:absolute;top:3px;right:3px;width:8px;height:8px;border-radius:50%;background:#E24B4A;border:1.5px solid var(--bg);}
-/* AI loading */
-.ai-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:300;display:none;flex-direction:column;align-items:center;justify-content:center;gap:20px;}
+.weather-card{border-radius:16px;padding:16px;margin-bottom:12px;color:#fff;}
+.ai-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:300;display:none;flex-direction:column;align-items:center;justify-content:center;gap:16px;}
 .ai-overlay.open{display:flex;}
 .ai-spinner{width:48px;height:48px;border:4px solid rgba(255,255,255,.2);border-top-color:#fff;border-radius:50%;animation:spin 1s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
 .prog-wrap{background:var(--bg2);border-radius:10px;height:6px;overflow:hidden;}
 .prog-fill{height:100%;background:var(--p);border-radius:10px;}
+.score-badge{padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;}
+.score-hi{background:var(--gl);color:var(--gr);}
+.score-mid{background:#FFF3CD;color:#856404;}
+.score-lo{background:#FCF3F3;color:#8B1111;}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:16px;}
+.cal-day{aspect-ratio:1;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:11px;cursor:pointer;position:relative;border:0.5px solid transparent;}
+.cal-day.has-outfit{background:var(--pl);border-color:var(--p);}
+.cal-day.has-outfit .cal-num{color:var(--p);font-weight:600;}
+.cal-day.today .cal-num{color:var(--p);font-weight:700;}
+.cal-num{font-size:13px;color:var(--t1);}
+.cal-dot{width:5px;height:5px;border-radius:50%;background:var(--p);margin-top:2px;}
+.hist-item{display:flex;gap:12px;align-items:center;padding:10px 0;border-bottom:0.5px solid var(--bd);cursor:pointer;}
+.hist-thumb{width:48px;height:48px;border-radius:10px;background:var(--bg2);overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:20px;}
+.hist-thumb img{width:100%;height:100%;object-fit:cover;}
+.mcard{border:1.5px solid var(--bd);border-radius:18px;padding:18px 12px;cursor:pointer;text-align:center;background:var(--bg);position:relative;transition:all .15s;}
+.mcard:active{opacity:.8;}
+.mcard.hi{border-color:var(--p);background:var(--pl);}
+.mcard.hi .mclbl{color:var(--p);}
+.mcbadge{position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--p);color:#fff;font-size:10px;padding:3px 10px;border-radius:0 0 10px 10px;white-space:nowrap;}
+.shop-item{display:flex;align-items:center;gap:10px;padding:10px 14px;border:0.5px solid var(--bd);border-radius:12px;margin-bottom:8px;cursor:pointer;background:var(--bg);}
+/* AI result styles */
+.ai-result-card{border:0.5px solid var(--bd);border-radius:16px;overflow:hidden;margin-bottom:12px;}
+.ai-result-header{padding:14px 16px;background:var(--bg2);border-bottom:0.5px solid var(--bd);}
+.ai-item-chip{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:var(--pl);color:var(--p);border-radius:20px;font-size:12px;font-weight:500;margin:3px;}
 </style>
 </head>
 <body>
+
 <div id="splash">
   <div style="font-size:56px;font-weight:800;color:#fff;letter-spacing:-2px;">OOTD</div>
-  <div style="font-size:14px;color:rgba(255,255,255,.6);letter-spacing:.05em;">오늘의 코디</div>
+  <div style="font-size:14px;color:rgba(255,255,255,.6);">오늘의 코디</div>
 </div>
+
 <div id="ob">
   <div style="height:env(safe-area-inset-top,44px);background:var(--bg);flex-shrink:0;"></div>
   <div class="ob-prog"><div class="ob-fill" id="ob-bar" style="width:20%"></div></div>
@@ -144,6 +134,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Pretendard','Apple SD Gothic 
   <div class="ob-scroll" id="ob-body"></div>
   <div class="ob-foot" id="ob-foot"></div>
 </div>
+
 <div class="app" id="app" style="display:none;">
 
   <!-- HOME -->
@@ -151,7 +142,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Pretendard','Apple SD Gothic 
     <div class="topbar">
       <div><div class="ttl">OOTD</div><div class="sub" id="hdate">오늘의 코디</div></div>
       <div style="display:flex;gap:8px;align-items:center;">
-        <div id="weather-pill" onclick="goScreen('history')" style="background:var(--bg2);border-radius:20px;padding:6px 12px;display:flex;align-items:center;gap:5px;cursor:pointer;">
+        <div id="weather-pill" style="background:var(--bg2);border-radius:20px;padding:6px 12px;display:flex;align-items:center;gap:5px;cursor:pointer;" onclick="goScreen('history')">
           <span id="wp-icon" style="font-size:15px;">🌤</span>
           <span id="wp-temp" style="font-size:13px;font-weight:600;color:var(--t1);">--°</span>
         </div>
@@ -163,7 +154,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Pretendard','Apple SD Gothic 
       <button class="nt on" onclick="goScreen('home')"><div class="ni">🏠</div><span class="nl">홈</span></button>
       <button class="nt" onclick="goScreen('closet')"><div class="ni">👔</div><span class="nl">내 옷장</span></button>
       <button class="nt" onclick="goScreen('request')"><div class="ni">✨</div><span class="nl">코디 요청</span></button>
-      <button class="nt" onclick="goScreen('history')" style="position:relative;"><div class="ni">📅</div><span class="nl">히스토리</span><div class="notif-dot" id="hist-dot" style="display:none;"></div></button>
+      <button class="nt" onclick="goScreen('history')"><div class="ni">📅</div><span class="nl">히스토리</span></button>
     </div>
   </div>
 
@@ -192,26 +183,25 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Pretendard','Apple SD Gothic 
 
   <!-- REQUEST -->
   <div class="screen" id="sc-request">
-    <div class="topbar"><div><div class="ttl">코디 요청</div><div class="sub" id="req-weather-sub">날씨 불러오는 중...</div></div></div>
+    <div class="topbar"><div><div class="ttl">코디 요청</div><div class="sub" id="req-wsub">날씨 불러오는 중...</div></div></div>
     <div class="scroll">
       <div class="slbl">자리 선택</div>
       <div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;" id="occ-row">
-        <div class="cchip on" style="min-width:86px;flex-shrink:0;" onclick="selOcc(this)"><div class="cemoji">💼</div><div class="clbl">비즈니스</div></div>
-        <div class="cchip" style="min-width:86px;flex-shrink:0;" onclick="selOcc(this)"><div class="cemoji">💒</div><div class="clbl">결혼식</div></div>
-        <div class="cchip" style="min-width:86px;flex-shrink:0;" onclick="selOcc(this)"><div class="cemoji">👨‍👩‍👦</div><div class="clbl">학부모</div></div>
-        <div class="cchip" style="min-width:86px;flex-shrink:0;" onclick="selOcc(this)"><div class="cemoji">🍽️</div><div class="clbl">저녁 약속</div></div>
-        <div class="cchip" style="min-width:86px;flex-shrink:0;" onclick="selOcc(this)"><div class="cemoji">🛍️</div><div class="clbl">주말 외출</div></div>
-        <div class="cchip" style="min-width:86px;flex-shrink:0;" onclick="selOcc(this)"><div class="cemoji">🏃</div><div class="clbl">운동·야외</div></div>
+        <div class="cchip on" style="min-width:86px;flex-shrink:0;" onclick="selOcc(this)" data-occ="비즈니스 미팅"><div class="cemoji">💼</div><div class="clbl">비즈니스</div></div>
+        <div class="cchip" style="min-width:86px;flex-shrink:0;" onclick="selOcc(this)" data-occ="결혼식 하객"><div class="cemoji">💒</div><div class="clbl">결혼식</div></div>
+        <div class="cchip" style="min-width:86px;flex-shrink:0;" onclick="selOcc(this)" data-occ="학부모 모임"><div class="cemoji">👨‍👩‍👦</div><div class="clbl">학부모</div></div>
+        <div class="cchip" style="min-width:86px;flex-shrink:0;" onclick="selOcc(this)" data-occ="저녁 약속"><div class="cemoji">🍽️</div><div class="clbl">저녁 약속</div></div>
+        <div class="cchip" style="min-width:86px;flex-shrink:0;" onclick="selOcc(this)" data-occ="주말 외출"><div class="cemoji">🛍️</div><div class="clbl">주말 외출</div></div>
+        <div class="cchip" style="min-width:86px;flex-shrink:0;" onclick="selOcc(this)" data-occ="운동 및 야외활동"><div class="cemoji">🏃</div><div class="clbl">운동·야외</div></div>
       </div>
 
-      <!-- 실시간 날씨 카드 -->
       <div class="slbl" style="margin-top:16px;">오늘 날씨</div>
-      <div id="req-weather-card" class="weather-card">
+      <div id="req-wcard" class="weather-card" style="background:linear-gradient(135deg,#1a2a4a,#2a3a6a);">
         <div style="display:flex;justify-content:space-between;align-items:flex-start;">
           <div>
             <div style="font-size:32px;font-weight:700;letter-spacing:-1px;" id="wc-temp">--°</div>
-            <div style="font-size:13px;opacity:.8;margin-top:2px;" id="wc-desc">날씨 확인 중...</div>
-            <div style="font-size:11px;opacity:.6;margin-top:4px;" id="wc-loc">위치 확인 중...</div>
+            <div style="font-size:13px;opacity:.85;margin-top:2px;" id="wc-desc">날씨 확인 중...</div>
+            <div style="font-size:11px;opacity:.65;margin-top:4px;" id="wc-loc">위치 확인 중...</div>
           </div>
           <div style="text-align:right;">
             <div style="font-size:36px;" id="wc-icon">🌤</div>
@@ -219,13 +209,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Pretendard','Apple SD Gothic 
           </div>
         </div>
         <div style="display:flex;gap:16px;margin-top:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,.2);">
-          <div style="font-size:11px;opacity:.8;">💧 <span id="wc-humid">--%</span></div>
-          <div style="font-size:11px;opacity:.8;">💨 <span id="wc-wind">-- m/s</span></div>
-          <div style="font-size:11px;opacity:.8;" id="wc-advice">코디 불러오는 중...</div>
+          <div style="font-size:11px;opacity:.85;">💧 <span id="wc-humid">--%</span></div>
+          <div style="font-size:11px;opacity:.85;">💨 <span id="wc-wind">--</span></div>
+          <div style="font-size:11px;opacity:.85;" id="wc-advice">👔 코디 불러오는 중...</div>
         </div>
       </div>
 
-      <div class="slbl" style="margin-top:16px;">목표 완성도</div>
+      <div class="slbl" style="margin-top:4px;">목표 완성도</div>
       <div style="background:var(--bg2);border-radius:14px;padding:16px;margin-bottom:4px;">
         <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;">
           <span style="font-size:13px;color:var(--t2);">목표</span>
@@ -234,16 +224,16 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Pretendard','Apple SD Gothic 
         <input type="range" min="50" max="95" value="75" step="5" style="width:100%;" oninput="document.getElementById('req-sc').textContent=this.value+'%'">
         <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--t3);margin-top:6px;"><span>50%</span><span>95%</span></div>
       </div>
-      <div class="slbl" style="margin-top:16px;">무드</div>
-      <div style="display:flex;flex-wrap:wrap;gap:7px;">
+      <div class="slbl" style="margin-top:12px;">무드</div>
+      <div style="display:flex;flex-wrap:wrap;gap:7px;" id="mood-row">
         <button class="pill s on" onclick="this.classList.toggle('on')">단정하게</button>
         <button class="pill s" onclick="this.classList.toggle('on')">편안하게</button>
         <button class="pill s" onclick="this.classList.toggle('on')">트렌디하게</button>
         <button class="pill s" onclick="this.classList.toggle('on')">클래식하게</button>
         <button class="pill s" onclick="this.classList.toggle('on')">캐주얼하게</button>
       </div>
-      <div class="slbl" style="margin-top:16px;">추가 요청 (선택)</div>
-      <textarea class="finput" rows="3" placeholder="예: 넥타이 없이, 브라운 자켓 포함"></textarea>
+      <div class="slbl" style="margin-top:12px;">추가 요청 (선택)</div>
+      <textarea class="finput" rows="3" id="extra-req" placeholder="예: 넥타이 없이, 브라운 자켓 꼭 포함, 배 커버되게"></textarea>
       <div style="font-size:11px;color:var(--t3);margin-top:5px;" id="req-hint"></div>
     </div>
     <div style="position:absolute;bottom:58px;left:0;right:0;padding:10px 18px;background:var(--bg);border-top:0.5px solid var(--bd);z-index:40;">
@@ -252,7 +242,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Pretendard','Apple SD Gothic 
     <div class="bnav">
       <button class="nt" onclick="goScreen('home')"><div class="ni">🏠</div><span class="nl">홈</span></button>
       <button class="nt" onclick="goScreen('closet')"><div class="ni">👔</div><span class="nl">내 옷장</span></button>
-      <button class="nt on" onclick="goScreen('request')"><div class="ni">✨</div><span class="nl">코디 요청</span></button>
+      <button class="nt on"><div class="ni">✨</div><span class="nl">코디 요청</span></button>
       <button class="nt" onclick="goScreen('history')"><div class="ni">📅</div><span class="nl">히스토리</span></button>
     </div>
   </div>
@@ -261,7 +251,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Pretendard','Apple SD Gothic 
   <div class="screen" id="sc-result">
     <div class="topbar">
       <button onclick="goScreen('request')" style="border:none;background:transparent;font-size:20px;cursor:pointer;color:var(--t2);padding:0;">←</button>
-      <div style="flex:1;margin-left:12px;"><span id="res-occ-badge" style="font-size:11px;background:var(--pl);color:var(--p);padding:4px 12px;border-radius:20px;">코디 결과</span></div>
+      <div style="flex:1;margin-left:12px;"><span id="res-badge" style="font-size:11px;background:var(--pl);color:var(--p);padding:4px 12px;border-radius:20px;">코디 결과</span></div>
       <button onclick="wearToday()" style="font-size:12px;padding:7px 14px;background:var(--p);color:#fff;border:none;border-radius:20px;cursor:pointer;font-family:inherit;">착용 완료 ✓</button>
     </div>
     <div class="scroll" id="result-body"></div>
@@ -276,7 +266,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Pretendard','Apple SD Gothic 
   <!-- HISTORY -->
   <div class="screen" id="sc-history">
     <div class="topbar">
-      <div><div class="ttl">코디 히스토리</div><div class="sub" id="hist-sub">이번 달 착용 기록</div></div>
+      <div><div class="ttl">코디 히스토리</div><div class="sub" id="hist-sub">착용 기록</div></div>
       <div style="display:flex;gap:6px;">
         <button onclick="changeMonth(-1)" style="border:none;background:transparent;font-size:16px;cursor:pointer;color:var(--t2);">◀</button>
         <span style="font-size:13px;font-weight:600;color:var(--t1);align-self:center;" id="hist-month"></span>
@@ -293,7 +283,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Pretendard','Apple SD Gothic 
       <button class="nt" onclick="goScreen('home')"><div class="ni">🏠</div><span class="nl">홈</span></button>
       <button class="nt" onclick="goScreen('closet')"><div class="ni">👔</div><span class="nl">내 옷장</span></button>
       <button class="nt" onclick="goScreen('request')"><div class="ni">✨</div><span class="nl">코디 요청</span></button>
-      <button class="nt on" onclick="goScreen('history')"><div class="ni">📅</div><span class="nl">히스토리</span></button>
+      <button class="nt on"><div class="ni">📅</div><span class="nl">히스토리</span></button>
     </div>
   </div>
 
@@ -309,32 +299,23 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Pretendard','Apple SD Gothic 
       <div class="slbl">체형 & 외형</div>
       <div style="border:0.5px solid var(--bd);border-radius:14px;overflow:hidden;margin-bottom:12px;" id="pbody"></div>
       <div class="slbl">스타일</div>
-      <div style="border:0.5px solid var(--bd);border-radius:14px;overflow:hidden;margin-bottom:12px;" id="pstyle"></div>
-      <div class="slbl">알림 설정</div>
-      <div style="border:0.5px solid var(--bd);border-radius:14px;overflow:hidden;margin-bottom:16px;">
-        <div class="prow">
-          <div><div style="font-size:13px;color:var(--t1);">매일 아침 코디 알림</div><div style="font-size:11px;color:var(--t3);margin-top:2px;">오전 8시 날씨 + 코디 추천</div></div>
-          <div id="notif-toggle" onclick="toggleNotif()" style="width:44px;height:26px;background:var(--bd);border-radius:13px;cursor:pointer;position:relative;transition:background .2s;">
-            <div id="notif-knob" style="width:20px;height:20px;border-radius:50%;background:#fff;position:absolute;top:3px;left:3px;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.2);"></div>
-          </div>
-        </div>
-      </div>
+      <div style="border:0.5px solid var(--bd);border-radius:14px;overflow:hidden;margin-bottom:16px;" id="pstyle"></div>
       <button class="btn btn-g" onclick="resetApp()">처음부터 다시 설정</button>
     </div>
   </div>
 </div>
 
-<!-- ADD METHOD SHEET -->
+<!-- ADD SHEET -->
 <div class="overlay" id="add-sheet">
   <div class="sheet">
     <div class="sh"></div>
-    <div class="shead"><div style="font-size:16px;font-weight:700;color:var(--t1);">어떻게 등록할까요?</div><button onclick="closeAdd()" style="border:none;background:transparent;font-size:18px;color:var(--t3);cursor:pointer;padding:2px 6px;">✕</button></div>
+    <div class="shead"><div style="font-size:16px;font-weight:700;color:var(--t1);">어떻게 등록할까요?</div><button onclick="closeAdd()" style="border:none;background:transparent;font-size:18px;color:var(--t3);cursor:pointer;">✕</button></div>
     <div class="sscroll">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;">
-        <div class="mcard hi" onclick="triggerCamera()"><div class="mcbadge">가장 쉬워요</div><div style="font-size:28px;margin-bottom:8px;">📸</div><div class="mclbl">사진 찍기</div><div style="font-size:11px;color:var(--p);margin-top:3px;line-height:1.4;">AI가 자동 분류</div></div>
-        <div class="mcard" onclick="triggerOutfit()"><div style="font-size:28px;margin-bottom:8px;">🧍</div><div class="mclbl">착장 사진</div><div style="font-size:11px;color:var(--t3);margin-top:3px;line-height:1.4;">전신 한 번에 등록</div></div>
-        <div class="mcard" onclick="openManual()"><div style="font-size:28px;margin-bottom:8px;">✏️</div><div class="mclbl">직접 입력</div><div style="font-size:11px;color:var(--t3);margin-top:3px;line-height:1.4;">색상·카테고리 선택</div></div>
-        <div class="mcard" onclick="openURL()"><div style="font-size:28px;margin-bottom:8px;">🛍️</div><div class="mclbl">쇼핑몰 URL</div><div style="font-size:11px;color:var(--t3);margin-top:3px;line-height:1.4;">링크 붙여넣기</div></div>
+        <div class="mcard hi" onclick="triggerCamera()"><div class="mcbadge">가장 쉬워요</div><div style="font-size:28px;margin-bottom:8px;">📸</div><div class="mclbl">사진 찍기</div><div style="font-size:11px;color:var(--p);margin-top:3px;">AI가 자동 분류</div></div>
+        <div class="mcard" onclick="triggerOutfit()"><div style="font-size:28px;margin-bottom:8px;">🧍</div><div class="mclbl">착장 사진</div><div style="font-size:11px;color:var(--t3);margin-top:3px;">전신 한 번에 등록</div></div>
+        <div class="mcard" onclick="openManual()"><div style="font-size:28px;margin-bottom:8px;">✏️</div><div class="mclbl">직접 입력</div><div style="font-size:11px;color:var(--t3);margin-top:3px;">색상·카테고리 선택</div></div>
+        <div class="mcard" onclick="openURL()"><div style="font-size:28px;margin-bottom:8px;">🛍️</div><div class="mclbl">쇼핑몰 URL</div><div style="font-size:11px;color:var(--t3);margin-top:3px;">링크 붙여넣기</div></div>
       </div>
       <div style="background:var(--bg2);border-radius:14px;padding:14px 16px;margin-bottom:16px;">
         <div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:10px;"><div style="width:6px;height:6px;border-radius:50%;background:var(--p);margin-top:5px;flex-shrink:0;"></div><div style="font-size:12px;color:var(--t2);line-height:1.6;">처음엔 <b>10~15벌</b>만 등록해도 충분해요.</div></div>
@@ -347,25 +328,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Pretendard','Apple SD Gothic 
   </div>
 </div>
 
-<!-- URL SHEET -->
-<div class="overlay" id="url-sheet">
-  <div class="sheet" style="max-height:50vh;">
-    <div class="sh"></div>
-    <div class="shead"><div style="font-size:16px;font-weight:700;color:var(--t1);">쇼핑몰 URL 입력</div><button onclick="document.getElementById('url-sheet').classList.remove('open')" style="border:none;background:transparent;font-size:18px;color:var(--t3);cursor:pointer;padding:2px 6px;">✕</button></div>
-    <div class="sscroll">
-      <div class="flbl">상품 URL</div>
-      <input class="finput" type="url" id="url-input" placeholder="https://www.musinsa.com/...">
-      <div style="font-size:11px;color:var(--t3);margin-top:5px;margin-bottom:14px;">무신사, 29CM, 자라, H&M 등 지원</div>
-      <button class="btn btn-p" onclick="handleURL()">AI로 분석하기 →</button>
-    </div>
-  </div>
-</div>
-
 <!-- MANUAL SHEET -->
 <div class="overlay" id="manual-sheet">
   <div class="sheet">
     <div class="sh"></div>
-    <div class="shead"><div style="font-size:16px;font-weight:700;color:var(--t1);">직접 입력</div><button onclick="document.getElementById('manual-sheet').classList.remove('open')" style="border:none;background:transparent;font-size:18px;color:var(--t3);cursor:pointer;padding:2px 6px;">✕</button></div>
+    <div class="shead"><div style="font-size:16px;font-weight:700;color:var(--t1);">직접 입력</div><button onclick="document.getElementById('manual-sheet').classList.remove('open')" style="border:none;background:transparent;font-size:18px;color:var(--t3);cursor:pointer;">✕</button></div>
     <div class="sscroll">
       <div class="flbl">카테고리</div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;" id="m-cat-g">
@@ -408,26 +375,37 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Pretendard','Apple SD Gothic 
   </div>
 </div>
 
+<!-- URL SHEET -->
+<div class="overlay" id="url-sheet">
+  <div class="sheet" style="max-height:50vh;">
+    <div class="sh"></div>
+    <div class="shead"><div style="font-size:16px;font-weight:700;color:var(--t1);">쇼핑몰 URL</div><button onclick="document.getElementById('url-sheet').classList.remove('open')" style="border:none;background:transparent;font-size:18px;color:var(--t3);cursor:pointer;">✕</button></div>
+    <div class="sscroll">
+      <div class="flbl">상품 URL</div>
+      <input class="finput" type="url" id="url-input" placeholder="https://www.musinsa.com/...">
+      <div style="font-size:11px;color:var(--t3);margin-top:5px;margin-bottom:14px;">무신사, 29CM, 자라, H&M 등 지원</div>
+      <button class="btn btn-p" onclick="handleURL()">AI로 분석하기 →</button>
+    </div>
+  </div>
+</div>
+
 <!-- ANALYSIS SHEET -->
 <div class="overlay" id="analysis-sheet">
   <div class="sheet">
     <div class="sh"></div>
     <div class="shead">
       <div><div style="font-size:16px;font-weight:700;color:var(--t1);" id="analysis-title">AI 분석 결과</div><div style="font-size:11px;color:var(--t3);margin-top:2px;" id="analysis-sub"></div></div>
-      <button onclick="document.getElementById('analysis-sheet').classList.remove('open')" style="border:none;background:transparent;font-size:18px;color:var(--t3);cursor:pointer;padding:2px 6px;">✕</button>
+      <button onclick="document.getElementById('analysis-sheet').classList.remove('open')" style="border:none;background:transparent;font-size:18px;color:var(--t3);cursor:pointer;">✕</button>
     </div>
     <div class="sscroll" id="analysis-body"></div>
   </div>
 </div>
 
 <!-- ITEM DETAIL SHEET -->
-<div class="overlay" id="item-detail-sheet">
+<div class="overlay" id="item-sheet">
   <div class="sheet" style="max-height:75vh;">
     <div class="sh"></div>
-    <div class="shead">
-      <div style="font-size:16px;font-weight:700;color:var(--t1);" id="det-title">아이템 상세</div>
-      <button onclick="document.getElementById('item-detail-sheet').classList.remove('open')" style="border:none;background:transparent;font-size:18px;color:var(--t3);cursor:pointer;padding:2px 6px;">✕</button>
-    </div>
+    <div class="shead"><div style="font-size:16px;font-weight:700;color:var(--t1);" id="det-title">아이템 상세</div><button onclick="document.getElementById('item-sheet').classList.remove('open')" style="border:none;background:transparent;font-size:18px;color:var(--t3);cursor:pointer;">✕</button></div>
     <div class="sscroll" id="det-body"></div>
   </div>
 </div>
@@ -435,28 +413,32 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Pretendard','Apple SD Gothic 
 <!-- AI LOADING -->
 <div class="ai-overlay" id="ai-loading">
   <div class="ai-spinner"></div>
-  <div style="color:#fff;font-size:14px;font-weight:600;" id="ai-msg">AI가 분석 중이에요...</div>
-  <div style="color:rgba(255,255,255,.6);font-size:12px;">잠시만 기다려주세요</div>
+  <div style="color:#fff;font-size:15px;font-weight:600;" id="ai-msg">AI가 분석 중이에요...</div>
+  <div style="color:rgba(255,255,255,.6);font-size:12px;" id="ai-sub">잠시만 기다려주세요</div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-// ─── CONSTANTS ───────────────────────────────
+// ─── CONFIG ─────────────────────────────────
+const API_URL = 'https://ootd-seven.vercel.app/api/cody';
+
+// ─── CONSTANTS ──────────────────────────────
 const CATS={'상의':{e:'👔'},'하의':{e:'👖'},'아우터':{e:'🧥'},'신발':{e:'👞'},'가방':{e:'👜'},'액세서리':{e:'🧣'}};
 const MISS=[{c:'아우터',r:'가을·겨울 완성도 +18%'},{c:'액세서리',r:'비즈니스 완성도 +12%'},{c:'신발',r:'전체 완성도 +8%'}];
-const COLORS={네이비:'#1a2a4a',블랙:'#1a1a1a',화이트:'#f0ece4',그레이:'#888880',카멜:'#8B6C42',브라운:'#5a4535',그린:'#3a6b3a',버건디:'#8B3030',블루:'#2a3a5a',오렌지:'#e07b5a',베이지:'#d4c5a9',아이보리:'#f5f0e8'};
+const COLORS={네이비:'#1a2a4a',블랙:'#1a1a1a',화이트:'#f0ece4',그레이:'#888880',카멜:'#8B6C42',브라운:'#5a4535',그린:'#3a6b3a',버건디:'#8B3030',블루:'#2a3a5a',오렌지:'#e07b5a'};
+const WX_ICONS={0:'☀️',1:'🌤',2:'⛅',3:'☁️',45:'🌫',51:'🌦',61:'🌧',71:'🌨',80:'🌦',95:'⛈'};
+const WX_DESC={0:'맑음',1:'대체로 맑음',2:'구름 조금',3:'흐림',45:'안개',51:'이슬비',61:'비',71:'눈',80:'소나기',95:'뇌우'};
 
 // ─── STATE ──────────────────────────────────
 let prof=JSON.parse(localStorage.getItem('ootd_prof')||'null');
 let clos=JSON.parse(localStorage.getItem('ootd_clos')||'[]');
-let hist=JSON.parse(localStorage.getItem('ootd_hist')||'[]'); // [{date,items,score,occ,weather}]
+let hist=JSON.parse(localStorage.getItem('ootd_hist')||'[]');
 let weather=null;
-let editing=false, fcat='전체';
+let editing=false,fcat='전체';
 let pendingItems=[];
 let histMonth=new Date();
 let lastResult=null;
-let notifOn=JSON.parse(localStorage.getItem('ootd_notif')||'false');
 
 function save(){localStorage.setItem('ootd_clos',JSON.stringify(clos));}
 function saveP(){localStorage.setItem('ootd_prof',JSON.stringify(prof));}
@@ -474,7 +456,6 @@ function goScreen(id){
   if(id==='request')updateReqWeather();
 }
 
-// ─── TOAST ──────────────────────────────────
 function toast(msg){
   const t=document.getElementById('toast');
   t.textContent=msg;t.classList.add('show');
@@ -482,96 +463,55 @@ function toast(msg){
 }
 
 // ─── WEATHER ────────────────────────────────
-const WX_ICONS={
-  0:'☀️',1:'🌤',2:'⛅',3:'☁️',45:'🌫',48:'🌫',
-  51:'🌦',53:'🌦',55:'🌧',61:'🌧',63:'🌧',65:'🌧',
-  71:'🌨',73:'🌨',75:'❄️',80:'🌦',81:'🌧',82:'🌧',
-  95:'⛈',96:'⛈',99:'⛈'
-};
-const WX_DESC={
-  0:'맑음',1:'대체로 맑음',2:'구름 조금',3:'흐림',
-  45:'안개',48:'안개',51:'이슬비',53:'이슬비',55:'이슬비',
-  61:'비',63:'비',65:'강한 비',71:'눈',73:'눈',75:'강한 눈',
-  80:'소나기',81:'소나기',82:'강한 소나기',95:'뇌우',96:'뇌우',99:'뇌우'
-};
-
 async function fetchWeather(){
   try{
-    const pos=await new Promise((res,rej)=>
-      navigator.geolocation.getCurrentPosition(res,rej,{timeout:8000}));
+    const pos=await new Promise((res,rej)=>navigator.geolocation.getCurrentPosition(res,rej,{timeout:8000}));
     const {latitude:lat,longitude:lon}=pos.coords;
-    const url=`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,apparent_temperature,weather_code,relative_humidity_2m,wind_speed_10m&timezone=auto`;
-    const r=await fetch(url);
+    const r=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,apparent_temperature,weather_code,relative_humidity_2m,wind_speed_10m&timezone=auto`);
     const d=await r.json();
     const c=d.current;
-    weather={
-      temp:Math.round(c.temperature_2m),
-      feel:Math.round(c.apparent_temperature),
-      code:c.weather_code,
-      humid:c.relative_humidity_2m,
-      wind:Math.round(c.wind_speed_10m*10)/10,
-      icon:WX_ICONS[c.weather_code]||'🌤',
-      desc:WX_DESC[c.weather_code]||'맑음',
-      lat,lon
-    };
-    // reverse geocode city name
+    weather={temp:Math.round(c.temperature_2m),feel:Math.round(c.apparent_temperature),code:c.weather_code,humid:c.relative_humidity_2m,wind:Math.round(c.wind_speed_10m*10)/10,icon:WX_ICONS[c.weather_code]||'🌤',desc:WX_DESC[c.weather_code]||'맑음',lat,lon};
     try{
       const gr=await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`);
       const gd=await gr.json();
-      const addr=gd.address;
-      weather.city=addr.city||addr.town||addr.suburb||addr.county||'내 위치';
+      weather.city=gd.address?.city||gd.address?.town||gd.address?.suburb||'내 위치';
     }catch{weather.city='내 위치';}
     updateWeatherUI();
     localStorage.setItem('ootd_weather',JSON.stringify({...weather,ts:Date.now()}));
-  }catch(e){
-    // try cached
+  }catch{
     const cached=JSON.parse(localStorage.getItem('ootd_weather')||'null');
     if(cached&&Date.now()-cached.ts<3600000){weather=cached;updateWeatherUI();}
-    else{
-      weather={temp:'--',feel:'--',code:1,humid:'--',wind:'--',icon:'🌤',desc:'날씨 확인 불가',city:'위치 권한 필요'};
-      updateWeatherUI();
-    }
+    else{weather={temp:'--',feel:'--',code:1,humid:'--',wind:'--',icon:'🌤',desc:'위치 권한 필요',city:'설정에서 허용해주세요'};updateWeatherUI();}
   }
 }
 
 function updateWeatherUI(){
   if(!weather)return;
-  // pill
   document.getElementById('wp-icon').textContent=weather.icon;
   document.getElementById('wp-temp').textContent=weather.temp+'°';
-  // request card
   document.getElementById('wc-temp').textContent=weather.temp+'°';
   document.getElementById('wc-desc').textContent=weather.desc;
   document.getElementById('wc-loc').textContent=weather.city||'내 위치';
   document.getElementById('wc-icon').textContent=weather.icon;
   document.getElementById('wc-feel').textContent='체감 '+weather.feel+'°';
   document.getElementById('wc-humid').textContent=weather.humid+'%';
-  document.getElementById('wc-wind').textContent=weather.wind+' m/s';
-  // weather card class
-  const card=document.getElementById('req-weather-card');
-  card.className='weather-card';
+  document.getElementById('wc-wind').textContent=weather.wind+'m/s';
   const t=weather.temp;
+  let advice='',cardClass='background:linear-gradient(135deg,#1a2a4a,#2a3a6a)';
   if(typeof t==='number'){
-    if(t>=25)card.classList.add('warm');
-    else if([45,48,51,53,55,61,63,65,80,81,82,95,96,99].includes(weather.code))card.classList.add('rainy');
-    else if([2,3].includes(weather.code))card.classList.add('cloudy');
-  }
-  // advice
-  let advice='';
-  if(typeof t==='number'){
-    if(t<5)advice='패딩·두꺼운 코트 필수';
-    else if(t<12)advice='자켓·코트 추천';
-    else if(t<18)advice='아우터 챙기세요';
-    else if(t<24)advice='가벼운 겉옷 OK';
-    else advice='반팔·얇은 옷';
+    if(t<5){advice='패딩·두꺼운 코트 필수';cardClass='background:linear-gradient(135deg,#1a3a5a,#0a2040)';}
+    else if(t<12){advice='자켓·코트 추천';cardClass='background:linear-gradient(135deg,#1a2a4a,#2a3a6a)';}
+    else if(t<18){advice='아우터 챙기세요';cardClass='background:linear-gradient(135deg,#2a3a5a,#3a4a7a)';}
+    else if(t<24){advice='가벼운 겉옷 OK';}
+    else{advice='반팔·얇은 옷';cardClass='background:linear-gradient(135deg,#5a3010,#8a5020)';}
+    if([61,63,65,80,81,82,95,96,99].includes(weather.code)){cardClass='background:linear-gradient(135deg,#1a3a5a,#2a4a6a)';}
   }
   document.getElementById('wc-advice').textContent='👔 '+advice;
-  document.getElementById('req-weather-sub').textContent=`${weather.city} ${weather.temp}° ${weather.desc}`;
+  document.getElementById('req-wcard').style.cssText=cardClass+';border-radius:16px;padding:16px;margin-bottom:12px;color:#fff;';
+  document.getElementById('req-wsub').textContent=`${weather.city} ${weather.temp}° ${weather.desc}`;
   renderHome();
 }
-function updateReqWeather(){
-  if(weather)updateWeatherUI();
-}
+function updateReqWeather(){if(weather)updateWeatherUI();}
 
 // ─── HOME ────────────────────────────────────
 function renderHome(){
@@ -580,69 +520,54 @@ function renderHome(){
   document.getElementById('hdate').textContent=`${now.getMonth()+1}월 ${now.getDate()}일 ${days[now.getDay()]}요일`;
   if(prof)document.getElementById('hav').textContent=(prof.name||'D').charAt(0).toUpperCase();
   const b=document.getElementById('hbody');
+  const todayH=hist.find(h=>h.date===todayStr());
+
   if(!clos.length){
-    b.innerHTML=`<div class="empty" style="padding-top:40px;"><div style="font-size:44px;">👔</div><div style="font-size:16px;font-weight:700;color:var(--t1);">옷장이 비어있어요</div><div style="font-size:13px;color:var(--t3);line-height:1.6;">옷을 등록하면 매일 아침<br>코디를 추천해드려요</div><button class="btn btn-p" style="width:auto;padding:12px 24px;margin-top:8px;" onclick="goScreen('closet');openAdd();">첫 옷 등록하기</button></div>`;
+    b.innerHTML=`<div class="empty" style="padding-top:50px;"><div style="font-size:44px;">👔</div><div style="font-size:16px;font-weight:700;color:var(--t1);">옷장이 비어있어요</div><div style="font-size:13px;color:var(--t3);line-height:1.6;">옷을 등록하면 매일 아침<br>AI가 진짜 코디를 추천해드려요</div><button class="btn btn-p" style="width:auto;padding:12px 24px;margin-top:8px;" onclick="goScreen('closet');openAdd();">첫 옷 등록하기</button></div>`;
     return;
   }
-  const todayHist=hist.find(h=>h.date===todayStr());
-  const items=clos.slice(0,5);
-  const wx=weather;
+
   b.innerHTML=`
-  ${wx?`<div style="background:var(--bg2);border-radius:14px;padding:12px 14px;margin-top:12px;margin-bottom:4px;display:flex;align-items:center;gap:10px;">
-    <span style="font-size:22px;">${wx.icon}</span>
-    <div style="flex:1;"><div style="font-size:13px;font-weight:600;color:var(--t1);">${wx.city} ${wx.temp}° ${wx.desc}</div><div style="font-size:11px;color:var(--t3);margin-top:2px;">체감 ${wx.feel}° · 습도 ${wx.humid}% · 바람 ${wx.wind}m/s</div></div>
+  ${weather?`<div style="background:var(--bg2);border-radius:14px;padding:12px 14px;margin-top:12px;margin-bottom:4px;display:flex;align-items:center;gap:10px;">
+    <span style="font-size:22px;">${weather.icon}</span>
+    <div style="flex:1;"><div style="font-size:13px;font-weight:600;color:var(--t1);">${weather.city} ${weather.temp}° ${weather.desc}</div><div style="font-size:11px;color:var(--t3);margin-top:1px;">체감 ${weather.feel}° · 습도 ${weather.humid}% · 바람 ${weather.wind}m/s</div></div>
   </div>`:''}
-  ${todayHist?`<div style="background:var(--gl);border-radius:14px;padding:12px 14px;margin-top:12px;margin-bottom:4px;display:flex;align-items:center;gap:10px;cursor:pointer;" onclick="goScreen('history')">
+  ${todayH?`<div style="background:var(--gl);border-radius:14px;padding:12px 14px;margin-top:12px;margin-bottom:4px;display:flex;align-items:center;gap:10px;cursor:pointer;" onclick="goScreen('history')">
     <span style="font-size:18px;">✅</span>
-    <div style="flex:1;"><div style="font-size:13px;font-weight:600;color:var(--gr);">오늘 코디 완료</div><div style="font-size:11px;color:var(--gr);opacity:.8;margin-top:1px;">${todayHist.occ||'코디'} · ${todayHist.score||'--'}%</div></div>
+    <div style="flex:1;"><div style="font-size:13px;font-weight:600;color:var(--gr);">오늘 코디 완료</div><div style="font-size:11px;color:var(--gr);opacity:.8;">${todayH.occ||'코디'} · ${todayH.score||'--'}%</div></div>
     <div style="font-size:11px;color:var(--gr);">기록 보기 ›</div>
   </div>`:''}
   <div class="slbl">오늘의 코디 추천</div>
   <div class="card">
-    <div style="padding:14px 16px 0;">
-      <div style="font-size:11px;background:var(--pl);color:var(--p);padding:4px 12px;border-radius:20px;display:inline-block;margin-bottom:8px;">비즈니스 캐주얼</div>
-      <div style="font-size:17px;font-weight:700;color:var(--t1);letter-spacing:-.3px;">오늘의 코디 추천</div>
-      <div style="font-size:12px;color:var(--t3);margin-top:2px;">등록된 ${clos.length}벌 기준${wx?' · '+wx.temp+'° '+wx.desc+' 반영':''}</div>
+    <div style="padding:14px 16px 10px;">
+      <div style="font-size:11px;background:var(--pl);color:var(--p);padding:4px 12px;border-radius:20px;display:inline-block;margin-bottom:8px;">AI 추천</div>
+      <div style="font-size:16px;font-weight:700;color:var(--t1);">코디 요청을 해보세요</div>
+      <div style="font-size:12px;color:var(--t3);margin-top:2px;">등록된 ${clos.length}벌로 AI가 진짜 코디를 추천해드려요${weather?' · '+weather.temp+'° 날씨 반영':''}</div>
     </div>
-    <div style="display:flex;align-items:center;gap:14px;padding:14px 16px;">
-      <div class="ring-w" style="width:72px;height:72px;">
-        <svg width="72" height="72" viewBox="0 0 72 72"><circle cx="36" cy="36" r="30" fill="none" stroke="var(--bg2)" stroke-width="7"/><circle cx="36" cy="36" r="30" fill="none" stroke="var(--p)" stroke-width="7" stroke-dasharray="188.5" stroke-dashoffset="33.9" stroke-linecap="round"/></svg>
-        <div class="ring-c"><div style="font-size:17px;font-weight:700;color:var(--t1);">82%</div><div style="font-size:9px;color:var(--t3);">완성도</div></div>
-      </div>
-      <div style="flex:1;">
-        <div class="mbar"><span class="mbar-k">색상</span><div class="mbar-t"><div class="mbar-f" style="width:90%;background:var(--p)"></div></div><span style="font-size:10px;color:var(--t3);">90</span></div>
-        <div class="mbar"><span class="mbar-k">체형 핏</span><div class="mbar-t"><div class="mbar-f" style="width:88%;background:var(--p)"></div></div><span style="font-size:10px;color:var(--t3);">88</span></div>
-        <div class="mbar"><span class="mbar-k">날씨</span><div class="mbar-t"><div class="mbar-f" style="width:${wx&&typeof wx.temp==='number'?Math.min(95,70+Math.round((20-Math.abs(wx.temp-18))*1.5)):82}%;background:var(--p)"></div></div></div>
-        <div class="mbar"><span class="mbar-k">액세서리</span><div class="mbar-t"><div class="mbar-f" style="width:58%;background:var(--am)"></div></div><span style="font-size:10px;color:var(--ad);">58</span></div>
-      </div>
-    </div>
-    <div style="height:0.5px;background:var(--bd);margin:0 16px;"></div>
-    <div style="display:flex;gap:8px;overflow-x:auto;padding:12px 16px 14px;">
-      ${items.map(it=>`<div class="itile" onclick="openItemDetail('${it.id}')"><div class="ibox" style="${it.img?'':'background:'+it.h+';'}">
+    <div style="display:flex;gap:8px;overflow-x:auto;padding:10px 16px 14px;">
+      ${clos.slice(0,5).map(it=>`<div class="itile" onclick="openItemDetail('${it.id}')"><div class="ibox" style="${it.img?'':'background:'+it.h+';'}">
         ${it.img?`<img src="${it.img}">`:`<span>${CATS[it.cat]?.e||'👔'}</span>`}
-        <div class="iok">✓</div></div>
-        <div style="font-size:10px;color:var(--t3);text-align:center;max-width:54px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">${it.name||it.cn}</div>
-      </div>`).join('')}
+      </div><div style="font-size:10px;color:var(--t3);text-align:center;max-width:54px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">${it.name||it.cn}</div></div>`).join('')}
     </div>
     <div style="display:flex;border-top:0.5px solid var(--bd);">
-      <button onclick="goScreen('request')" style="flex:1;padding:13px;border:none;background:transparent;cursor:pointer;font-size:13px;color:var(--t2);font-family:inherit;">다른 조합</button>
-      <button onclick="goScreen('request')" style="flex:1;padding:13px;border:none;background:transparent;cursor:pointer;font-size:13px;color:var(--p);font-weight:600;font-family:inherit;border-left:0.5px solid var(--bd);">코디 요청 →</button>
+      <button onclick="goScreen('closet')" style="flex:1;padding:13px;border:none;background:transparent;cursor:pointer;font-size:13px;color:var(--t2);font-family:inherit;">내 옷장 보기</button>
+      <button onclick="goScreen('request')" style="flex:1;padding:13px;border:none;background:transparent;cursor:pointer;font-size:13px;color:var(--p);font-weight:600;font-family:inherit;border-left:0.5px solid var(--bd);">AI 코디 요청 →</button>
     </div>
   </div>
   <div class="slbl">상황별 빠른 선택</div>
   <div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;">
-    ${[['💒','결혼식','88%'],['👨‍👩‍👦','학부모','67%'],['🛍️','주말','74%']].map(([e,n,s])=>`
-      <div onclick="goScreen('request')" style="flex-shrink:0;width:96px;border:0.5px solid var(--bd);border-radius:14px;padding:14px 8px;text-align:center;cursor:pointer;background:var(--bg);">
+    ${[['💼','비즈니스','비즈니스 미팅'],['💒','결혼식','결혼식 하객'],['🛍️','주말 외출','주말 외출']].map(([e,n,occ])=>`
+      <div onclick="quickRequest('${occ}')" style="flex-shrink:0;width:96px;border:0.5px solid var(--bd);border-radius:14px;padding:14px 8px;text-align:center;cursor:pointer;background:var(--bg);">
         <div style="font-size:22px;margin-bottom:5px;">${e}</div>
         <div style="font-size:12px;font-weight:600;color:var(--t1);">${n}</div>
-        <div style="font-size:11px;color:var(--t3);margin-top:2px;">${s}</div>
+        <div style="font-size:11px;color:var(--p);margin-top:3px;">AI 추천 →</div>
       </div>`).join('')}
   </div>
   <div class="slbl">자주 안 입는 옷</div>
-  ${renderUnwornItems()}`;
+  ${renderUnworn()}`;
 }
 
-function renderUnwornItems(){
+function renderUnworn(){
   const unworn=clos.filter(i=>!i.wc||i.wc<2).slice(0,3);
   if(!unworn.length)return`<div style="font-size:13px;color:var(--t3);padding:8px 0 16px;">모든 옷을 골고루 입고 있어요 👍</div>`;
   return`<div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:16px;">${unworn.map(it=>`
@@ -653,6 +578,14 @@ function renderUnwornItems(){
       <div style="font-size:10px;color:var(--t3);overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">${it.name||it.cn}</div>
       <div style="font-size:10px;color:var(--am);">${it.wc||0}회 착용</div>
     </div>`).join('')}</div>`;
+}
+
+function quickRequest(occ){
+  document.querySelectorAll('#occ-row .cchip').forEach(c=>{
+    c.classList.toggle('on',c.dataset.occ===occ);
+  });
+  goScreen('request');
+  setTimeout(()=>submitRequest(),300);
 }
 
 // ─── CLOSET ──────────────────────────────────
@@ -703,10 +636,7 @@ function renderCloset(){
 }
 function setF(c){fcat=c;renderCloset();}
 function toggleEdit(){editing=!editing;renderCloset();}
-function delIt(i){
-  if(!confirm('삭제할까요?'))return;
-  const it=clos[i];clos.splice(i,1);save();renderCloset();toast(`${it.name||it.cat} 삭제됨`);
-}
+function delIt(i){if(!confirm('삭제할까요?'))return;const it=clos[i];clos.splice(i,1);save();renderCloset();toast(`${it.name||it.cat} 삭제됨`);}
 
 // ─── ITEM DETAIL ────────────────────────────
 function openItemDetail(id){
@@ -721,36 +651,141 @@ function openItemDetail(id){
       <div style="flex:1;background:var(--bg2);border-radius:12px;padding:12px;text-align:center;"><div style="font-size:14px;font-weight:700;color:var(--t1);">${it.cat}</div><div style="font-size:10px;color:var(--t3);">카테고리</div></div>
       <div style="flex:1;background:var(--bg2);border-radius:12px;padding:12px;text-align:center;"><div style="width:20px;height:20px;border-radius:50%;background:${it.h};margin:0 auto 4px;border:1px solid var(--bd);"></div><div style="font-size:10px;color:var(--t3);">${it.cn}</div></div>
     </div>
-    ${it.brand?`<div style="font-size:13px;color:var(--t2);margin-bottom:12px;">브랜드: ${it.brand}</div>`:''}
-    <div style="font-size:12px;color:var(--t3);margin-bottom:8px;">계절: ${(it.seas||[]).join('·')}</div>
     ${histItems.length?`<div class="slbl">착용 기록</div>${histItems.slice(-5).reverse().map(h=>`<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:0.5px solid var(--bd);font-size:13px;"><span style="color:var(--t1);">${h.date}</span><span style="color:var(--t3);">${h.occ||''} · ${h.score||'--'}%</span></div>`).join('')}`:''}
     <div style="height:14px;"></div>
-    <button class="btn btn-p" onclick="quickWear('${id}')">오늘 착용으로 기록 ✓</button>
-    <div style="height:8px;"></div>
-    <button class="btn btn-g" onclick="delItById('${id}')">이 옷 삭제</button>`;
-  document.getElementById('item-detail-sheet').classList.add('open');
-}
-function quickWear(id){
-  const it=clos.find(i=>String(i.id)===String(id));
-  if(!it)return;
-  it.wc=(it.wc||0)+1;save();
-  addHistEntry({items:[String(id)],score:null,occ:'개별 착용'});
-  document.getElementById('item-detail-sheet').classList.remove('open');
-  toast(`${it.name||it.cat} 착용 기록됨 ✓`);
+    <button class="btn btn-g" style="margin-bottom:8px;" onclick="delItById('${id}')">이 옷 삭제</button>`;
+  document.getElementById('item-sheet').classList.add('open');
 }
 function delItById(id){
   if(!confirm('삭제할까요?'))return;
   const i=clos.findIndex(it=>String(it.id)===String(id));
   if(i<0)return;
   const it=clos[i];clos.splice(i,1);save();
-  document.getElementById('item-detail-sheet').classList.remove('open');
+  document.getElementById('item-sheet').classList.remove('open');
   renderCloset();toast(`${it.name||it.cat} 삭제됨`);
 }
 
-// ─── HISTORY ────────────────────────────────
+// ─── AI CODY REQUEST ─────────────────────────
+function selOcc(el){
+  document.getElementById('occ-row').querySelectorAll('.cchip').forEach(c=>c.classList.remove('on'));
+  el.classList.add('on');
+}
+
+async function submitRequest(){
+  if(!clos.length){toast('먼저 옷을 등록해주세요');return;}
+  const occEl=document.querySelector('#occ-row .cchip.on');
+  const occ=occEl?.dataset.occ||'비즈니스 미팅';
+  const score=parseInt(document.getElementById('req-sc').textContent)||75;
+  const moods=[...document.querySelectorAll('#mood-row .pill.on')].map(b=>b.textContent).join(', ');
+  const extra=document.getElementById('extra-req').value.trim();
+
+  // Show loading
+  document.getElementById('ai-loading').classList.add('open');
+  document.getElementById('ai-msg').textContent='AI가 옷장을 분석하고 있어요...';
+  document.getElementById('ai-sub').textContent=`등록된 ${clos.length}벌 기준으로 최적 코디를 찾는 중`;
+
+  try{
+    const res=await fetch(API_URL,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        closet:clos,
+        profile:prof||{},
+        occasion:occ,
+        weather:weather,
+        targetScore:score,
+        mood:moods+(extra?` / 추가요청: ${extra}`:'')
+      })
+    });
+
+    document.getElementById('ai-loading').classList.remove('open');
+
+    if(!res.ok)throw new Error('API 오류');
+    const result=await res.json();
+
+    lastResult={occ,score:result.score,items:result.selectedItems||[],raw:result};
+    showResult(occ,result);
+    goScreen('result');
+
+  }catch(err){
+    document.getElementById('ai-loading').classList.remove('open');
+    toast('AI 연결 실패 — 잠시 후 다시 시도해주세요');
+    console.error(err);
+  }
+}
+
+function showResult(occ,r){
+  document.getElementById('res-badge').textContent=occ;
+  const score=r.score||75;
+  const scoreClass=score>=80?'score-hi':score>=65?'score-mid':'score-lo';
+
+  // match selected items to closet
+  const matchedItems=clos.filter(it=>(r.selectedItems||[]).some(name=>
+    it.name?.includes(name)||name?.includes(it.name)||name?.includes(it.cn)
+  ));
+  const displayItems=matchedItems.length?matchedItems:clos.slice(0,4);
+
+  document.getElementById('result-body').innerHTML=`
+  <div style="padding-top:12px;">
+    <div style="font-size:20px;font-weight:700;color:var(--t1);letter-spacing:-.4px;margin-bottom:3px;">${r.title||occ+' 코디'}</div>
+    <div style="font-size:12px;color:var(--t3);">${prof?.body||'표준형'} · ${prof?.pc||'웜톤'}${weather?' · '+weather.temp+'° '+weather.desc+' 반영':''}</div>
+  </div>
+
+  <div style="display:flex;align-items:center;gap:14px;padding:16px 0 12px;">
+    <div class="ring-w" style="width:80px;height:80px;">
+      <svg width="80" height="80" viewBox="0 0 80 80"><circle cx="40" cy="40" r="32" fill="none" stroke="var(--bg2)" stroke-width="8"/><circle cx="40" cy="40" r="32" fill="none" stroke="var(--p)" stroke-width="8" stroke-dasharray="201" stroke-dashoffset="${Math.round(201*(1-score/100))}" stroke-linecap="round"/></svg>
+      <div class="ring-c"><div style="font-size:17px;font-weight:700;color:var(--t1);">${score}%</div><div style="font-size:9px;color:var(--t3);">완성도</div></div>
+    </div>
+    <div style="flex:1;">
+      ${r.scores?`
+      <div class="mbar"><span class="mbar-k">색상</span><div class="mbar-t"><div class="mbar-f" style="width:${r.scores.color||score}%;background:var(--p)"></div></div><span style="font-size:10px;color:var(--t3);">${r.scores.color||score}</span></div>
+      <div class="mbar"><span class="mbar-k">체형 핏</span><div class="mbar-t"><div class="mbar-f" style="width:${r.scores.fit||score}%;background:var(--p)"></div></div><span style="font-size:10px;color:var(--t3);">${r.scores.fit||score}</span></div>
+      <div class="mbar"><span class="mbar-k">날씨</span><div class="mbar-t"><div class="mbar-f" style="width:${r.scores.weather||score}%;background:var(--p)"></div></div><span style="font-size:10px;color:var(--t3);">${r.scores.weather||score}</span></div>
+      <div class="mbar"><span class="mbar-k">TPO</span><div class="mbar-t"><div class="mbar-f" style="width:${r.scores.tpo||score}%;background:var(--p)"></div></div><span style="font-size:10px;color:var(--t3);">${r.scores.tpo||score}</span></div>
+      <div class="mbar"><span class="mbar-k">액세서리</span><div class="mbar-t"><div class="mbar-f" style="width:${r.scores.accessory||50}%;background:${(r.scores.accessory||50)<65?'var(--am)':'var(--p)'}"></div></div><span style="font-size:10px;color:var(--ad);">${r.scores.accessory||50}</span></div>`:''}
+    </div>
+  </div>
+
+  <div style="height:0.5px;background:var(--bd);"></div>
+  <div style="font-size:12px;font-weight:600;color:var(--t1);margin:12px 0 8px;">구성 아이템</div>
+  <div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin-bottom:12px;">
+    ${displayItems.map(it=>`<div class="itile"><div class="ibox" style="${it.img?'':'background:'+it.h+';'}">
+      ${it.img?`<img src="${it.img}">`:`<span>${CATS[it.cat]?.e||'👔'}</span>`}
+      <div class="iok">✓</div></div>
+      <div style="font-size:10px;color:var(--t3);text-align:center;max-width:54px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">${it.name||it.cn}</div>
+    </div>`).join('')}
+  </div>
+
+  ${r.advice?`
+  <div class="ai-result-card">
+    <div class="ai-result-header">
+      <div style="font-size:10px;color:var(--t3);margin-bottom:4px;">AI 스타일 해설</div>
+      <div style="font-size:13px;color:var(--t1);line-height:1.75;">${r.advice}</div>
+    </div>
+    ${r.tip?`<div style="padding:12px 16px;font-size:12px;color:var(--p);line-height:1.6;">💡 ${r.tip}</div>`:''}
+  </div>`:''}
+
+  ${r.missing&&r.missing.length?`
+  <div style="background:#FAEEDA;border-radius:14px;padding:14px;margin-bottom:12px;">
+    <div style="font-size:12px;font-weight:600;color:#633806;margin-bottom:10px;">완성도를 더 올리려면</div>
+    ${r.missing.map(m=>`
+      <div class="shop-item" onclick="window.open('https://www.musinsa.com/search/goods?keyword=${encodeURIComponent(m.cat||m.c||'')}','_blank')">
+        <span style="font-size:20px;">${CATS[m.cat||m.c]?.e||'🛍️'}</span>
+        <div style="flex:1;"><div style="font-size:13px;font-weight:600;color:var(--t1);">${m.cat||m.c} 추가</div><div style="font-size:11px;color:var(--t2);">${m.reason||m.r||''} ${m.effect||''}</div></div>
+        <div style="font-size:11px;color:var(--p);">무신사 →</div>
+      </div>`).join('')}
+  </div>`:''}
+
+  <div style="display:flex;gap:8px;">
+    <button onclick="goScreen('request')" class="btn btn-g" style="flex:1;">다시 요청</button>
+    <button onclick="wearToday()" class="btn btn-p" style="flex:1;">착용 완료 ✓</button>
+  </div>`;
+}
+
+// ─── WEAR / HISTORY ──────────────────────────
 function todayStr(){
   const d=new Date();
-  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+  return`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
 }
 function addHistEntry(entry){
   const date=todayStr();
@@ -758,264 +793,50 @@ function addHistEntry(entry){
   hist.push({date,...entry,weather:weather?{temp:weather.temp,desc:weather.desc,icon:weather.icon}:null});
   saveH();
 }
-function changeMonth(d){
-  histMonth=new Date(histMonth.getFullYear(),histMonth.getMonth()+d,1);
-  renderHistory();
-}
-function renderHistory(){
-  const yr=histMonth.getFullYear(),mo=histMonth.getMonth();
-  document.getElementById('hist-month').textContent=`${yr}년 ${mo+1}월`;
-  document.getElementById('hist-sub').textContent='착용 기록';
-  // calendar
-  const first=new Date(yr,mo,1).getDay();
-  const days=new Date(yr,mo+1,0).getDate();
-  const today=new Date();
-  const isToday=(d)=>yr===today.getFullYear()&&mo===today.getMonth()&&d===today.getDate();
-  const monthHist=hist.filter(h=>{const [hy,hm]=h.date.split('-').map(Number);return hy===yr&&hm-1===mo;});
-  const histByDay={};monthHist.forEach(h=>{const d=parseInt(h.date.split('-')[2]);histByDay[d]=h;});
-  const dayNames=['일','월','화','수','목','금','토'];
-  let cal=`<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:8px;">${dayNames.map(d=>`<div style="font-size:10px;color:var(--t3);text-align:center;padding:4px 0;">${d}</div>`).join('')}</div>`;
-  cal+=`<div class="cal-grid">`;
-  for(let i=0;i<first;i++)cal+=`<div></div>`;
-  for(let d=1;d<=days;d++){
-    const has=histByDay[d];
-    const td=isToday(d);
-    cal+=`<div class="cal-day${has?' has-outfit':''}${td?' today':''}" onclick="${has?`showHistDay('${yr}-${String(mo+1).padStart(2,'0')}-${String(d).padStart(2,'0')}')`:''}" style="${has?'cursor:pointer;':''}">
-      <div class="cal-num">${d}</div>
-      ${has?`<div class="cal-dot"></div>`:''}
-    </div>`;
-  }
-  cal+=`</div>`;
-  document.getElementById('hist-calendar').innerHTML=cal;
-  // stats
-  const monthWear=monthHist.length;
-  const avgScore=monthHist.filter(h=>h.score).reduce((s,h,_,a)=>s+h.score/a.length,0);
-  document.getElementById('hist-stats').innerHTML=`
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
-      <div style="background:var(--bg2);border-radius:12px;padding:12px;text-align:center;"><div style="font-size:20px;font-weight:700;color:var(--t1);">${monthWear}</div><div style="font-size:10px;color:var(--t3);">이번 달 착용</div></div>
-      <div style="background:var(--bg2);border-radius:12px;padding:12px;text-align:center;"><div style="font-size:20px;font-weight:700;color:var(--t1);">${avgScore?Math.round(avgScore)+'%':'--'}</div><div style="font-size:10px;color:var(--t3);">평균 완성도</div></div>
-      <div style="background:var(--bg2);border-radius:12px;padding:12px;text-align:center;"><div style="font-size:20px;font-weight:700;color:var(--t1);">${hist.reduce((s,h)=>s+(h.items?.length||0),0)}</div><div style="font-size:10px;color:var(--t3);">총 착용 기록</div></div>
-    </div>`;
-  // list (recent first)
-  const sorted=[...monthHist].sort((a,b)=>b.date.localeCompare(a.date));
-  document.getElementById('hist-list').innerHTML=sorted.length?sorted.map(h=>{
-    const itemObjs=(h.items||[]).map(id=>clos.find(c=>String(c.id)===String(id))).filter(Boolean);
-    const sc=h.score;
-    const scClass=sc>=80?'score-hi':sc>=65?'score-mid':'score-lo';
-    return `<div class="hist-item" onclick="showHistDay('${h.date}')">
-      <div class="hist-thumb">
-        ${itemObjs[0]?.img?`<img src="${itemObjs[0].img}">`:`<span>${itemObjs[0]?CATS[itemObjs[0].cat]?.e:'👔'}</span>`}
-      </div>
-      <div style="flex:1;">
-        <div style="font-size:13px;font-weight:600;color:var(--t1);">${h.date.slice(5).replace('-','/')}</div>
-        <div style="font-size:12px;color:var(--t3);margin-top:2px;">${h.occ||'코디'}${h.weather?` · ${h.weather.icon}${h.weather.temp}°`:''}</div>
-      </div>
-      ${sc?`<div class="score-badge ${scClass}">${sc}%</div>`:''}
-    </div>`;
-  }).join(''):`<div class="empty"><div style="font-size:36px;">📅</div><div style="font-size:14px;color:var(--t1);">이번 달 기록 없음</div><div style="font-size:12px;color:var(--t3);">코디 착용 완료 시 자동 기록돼요</div></div>`;
-}
-function showHistDay(date){
-  const entry=hist.find(h=>h.date===date);
-  if(!entry)return;
-  toast(`${date.slice(5).replace('-','/')} 기록: ${entry.occ||'코디'} ${entry.score?entry.score+'%':''}`);
-}
-
-// ─── REQUEST / RESULT ───────────────────────
-function selOcc(el){document.getElementById('occ-row').querySelectorAll('.cchip').forEach(c=>c.classList.remove('on'));el.classList.add('on');}
-
-function submitRequest(){
-  if(!clos.length){toast('먼저 옷을 등록해주세요');return;}
-  const occEl=document.querySelector('#occ-row .cchip.on .clbl');
-  const occ=occEl?.textContent||'비즈니스';
-  const score=parseInt(document.getElementById('req-sc').textContent)||75;
-  showResult(occ,score);
-  goScreen('result');
-}
-
-function showResult(occ,targetScore){
-  const occBadge=document.getElementById('res-occ-badge');
-  if(occBadge)occBadge.textContent=occ+' 코디';
-  const score=targetScore+(Math.random()>0.5?7:-5);
-  const clampedScore=Math.max(50,Math.min(99,Math.round(score)));
-  lastResult={occ,score:clampedScore,items:clos.slice(0,4).map(i=>i.id)};
-  const items=clos.slice(0,4);
-  const miss=MISS.filter(m=>!new Set(clos.map(i=>i.cat)).has(m.c));
-  document.getElementById('result-body').innerHTML=`
-    <div style="padding-top:12px;">
-      <div style="font-size:18px;font-weight:700;color:var(--t1);letter-spacing:-.4px;margin-bottom:3px;">${occ} 코디</div>
-      <div style="font-size:12px;color:var(--t3);">${prof?.body||'표준형'} · ${prof?.pc||'웜톤'} · ${weather?weather.temp+'° '+weather.desc+' 반영':''}</div>
-    </div>
-    <div style="display:flex;align-items:center;gap:14px;padding:14px 0 10px;">
-      <div class="ring-w" style="width:80px;height:80px;">
-        <svg width="80" height="80" viewBox="0 0 80 80"><circle cx="40" cy="40" r="32" fill="none" stroke="var(--bg2)" stroke-width="8"/><circle cx="40" cy="40" r="32" fill="none" stroke="var(--p)" stroke-width="8" stroke-dasharray="201" stroke-dashoffset="${Math.round(201*(1-clampedScore/100))}" stroke-linecap="round"/></svg>
-        <div class="ring-c"><div style="font-size:17px;font-weight:700;color:var(--t1);">${clampedScore}%</div><div style="font-size:9px;color:var(--t3);">완성도</div></div>
-      </div>
-      <div style="flex:1;">
-        <div class="mbar"><span class="mbar-k">색상</span><div class="mbar-t"><div class="mbar-f" style="width:${Math.min(99,clampedScore+8)}%;background:var(--p)"></div></div><span style="font-size:10px;color:var(--t3);">${Math.min(99,clampedScore+8)}</span></div>
-        <div class="mbar"><span class="mbar-k">체형 핏</span><div class="mbar-t"><div class="mbar-f" style="width:${Math.min(99,clampedScore+5)}%;background:var(--p)"></div></div><span style="font-size:10px;color:var(--t3);">${Math.min(99,clampedScore+5)}</span></div>
-        <div class="mbar"><span class="mbar-k">날씨</span><div class="mbar-t"><div class="mbar-f" style="width:${Math.min(99,clampedScore+3)}%;background:var(--p)"></div></div><span style="font-size:10px;color:var(--t3);">${Math.min(99,clampedScore+3)}</span></div>
-        <div class="mbar"><span class="mbar-k">액세서리</span><div class="mbar-t"><div class="mbar-f" style="width:${Math.max(40,clampedScore-20)}%;background:${clampedScore<70?'var(--am)':'var(--p)'}"></div></div><span style="font-size:10px;color:var(--ad);">${Math.max(40,clampedScore-20)}</span></div>
-      </div>
-    </div>
-    <div style="height:0.5px;background:var(--bd);"></div>
-    <div style="font-size:12px;font-weight:600;color:var(--t1);margin:12px 0 8px;">구성 아이템</div>
-    <div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin-bottom:12px;">
-      ${items.map(it=>`<div class="itile"><div class="ibox" style="${it.img?'':'background:'+it.h+';'}">
-        ${it.img?`<img src="${it.img}">`:`<span>${CATS[it.cat]?.e||'👔'}</span>`}
-        <div class="iok">✓</div></div>
-        <div style="font-size:10px;color:var(--t3);text-align:center;max-width:54px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">${it.name||it.cn}</div>
-      </div>`).join('')}
-    </div>
-    ${miss.length?`
-    <div style="background:#FAEEDA;border-radius:14px;padding:14px;margin-bottom:12px;">
-      <div style="font-size:12px;font-weight:600;color:#633806;margin-bottom:8px;">완성도를 올리려면</div>
-      ${miss.slice(0,2).map(m=>`
-        <div class="shop-item" onclick="window.open('https://www.musinsa.com/search/goods?keyword=${encodeURIComponent(m.c)}','_blank')">
-          <span style="font-size:20px;">${CATS[m.c]?.e||'🛍️'}</span>
-          <div style="flex:1;"><div style="font-size:13px;font-weight:600;color:var(--t1);">${m.c} 추가 시</div><div style="font-size:11px;color:var(--t2);">${m.r}</div></div>
-          <div style="font-size:11px;color:var(--p);">무신사 →</div>
-        </div>`).join('')}
-    </div>`:''}
-    <div style="border:0.5px solid var(--bd);border-radius:14px;overflow:hidden;margin-bottom:12px;">
-      <div style="padding:12px 14px;background:var(--bg2);border-bottom:0.5px solid var(--bd);">
-        <div style="font-size:10px;color:var(--t3);margin-bottom:4px;">AI 스타일 해설</div>
-        <div style="font-size:13px;color:var(--t1);line-height:1.7;">${prof?.body||'표준형'} 체형에 ${prof?.pc||'웜톤'} 퍼스널 컬러를 반영한 코디예요. ${occ} 자리에 적합한 완성도 ${clampedScore}% 조합입니다.</div>
-      </div>
-      <div style="display:flex;">
-        <button onclick="goScreen('request')" style="flex:1;padding:13px;border:none;background:transparent;cursor:pointer;font-size:13px;color:var(--t2);font-family:inherit;">다시 요청</button>
-        <button onclick="wearToday()" style="flex:1;padding:13px;border:none;background:transparent;cursor:pointer;font-size:13px;color:var(--p);font-weight:600;font-family:inherit;border-left:0.5px solid var(--bd);">착용 완료 ✓</button>
-      </div>
-    </div>`;
-}
-
 function wearToday(){
   if(!lastResult)return;
-  lastResult.items.forEach(id=>{
-    const it=clos.find(c=>String(c.id)===String(id));
-    if(it)it.wc=(it.wc||0)+1;
-  });
-  save();
-  addHistEntry({items:lastResult.items.map(String),score:lastResult.score,occ:lastResult.occ});
-  document.getElementById('hist-dot').style.display='block';
+  const matchedIds=clos.filter(it=>(lastResult.items||[]).some(name=>it.name?.includes(name)||name?.includes(it.name)||name?.includes(it.cn))).map(i=>String(i.id));
+  if(matchedIds.length){matchedIds.forEach(id=>{const it=clos.find(c=>String(c.id)===id);if(it)it.wc=(it.wc||0)+1;});save();}
+  addHistEntry({items:matchedIds,score:lastResult.score,occ:lastResult.occ});
   toast('오늘 코디 기록 완료 ✓');
   goScreen('home');
 }
 
-// ─── ADD FLOW ────────────────────────────────
-function openAdd(){
-  updateProgress();
-  document.getElementById('add-sheet').classList.add('open');
-}
-function closeAdd(){document.getElementById('add-sheet').classList.remove('open');}
-document.getElementById('add-sheet').addEventListener('click',e=>{if(e.target===document.getElementById('add-sheet'))closeAdd();});
-['url-sheet','manual-sheet','analysis-sheet','item-detail-sheet'].forEach(id=>{
-  document.getElementById(id).addEventListener('click',e=>{if(e.target===document.getElementById(id))document.getElementById(id).classList.remove('open');});
-});
-function updateProgress(){
-  const n=clos.length,goal=15,pct=Math.min(100,Math.round(n/goal*100));
-  document.getElementById('prog-fill').style.width=pct+'%';
-  document.getElementById('prog-txt').textContent=`${n} / ${goal}벌`;
-  document.getElementById('prog-hint').textContent=n<5?`첫 추천까지 ${5-n}벌 남음`:n<goal?`목표까지 ${goal-n}벌 남음`:'목표 달성! 🎉';
-}
-function triggerCamera(){closeAdd();document.getElementById('cam-input').click();}
-function triggerOutfit(){closeAdd();document.getElementById('outfit-input').click();}
-function openManual(){
-  closeAdd();
-  document.getElementById('m-iname').value='';
-  document.getElementById('m-ibrand').value='';
-  document.querySelectorAll('#m-cat-g .cchip').forEach((c,i)=>c.classList.toggle('on',i===0));
-  document.querySelectorAll('#m-col-g .csw').forEach((c,i)=>c.classList.toggle('on',i===0));
-  document.getElementById('manual-sheet').classList.add('open');
-}
-function openURL(){closeAdd();document.getElementById('url-input').value='';document.getElementById('url-sheet').classList.add('open');}
-async function handlePhoto(input,mode){
-  if(!input.files||!input.files[0])return;
-  const file=input.files[0];input.value='';
-  const base64=await toBase64(file);
-  const loadEl=document.getElementById('ai-loading');
-  loadEl.classList.add('open');
-  document.getElementById('ai-msg').textContent=mode==='outfit'?'착장에서 아이템을 찾고 있어요...':'AI가 옷을 분석하고 있어요...';
-  try{
-    const prompt=mode==='outfit'
-      ?`이 착장 사진에서 보이는 모든 의류 아이템을 분석해서 JSON 배열로 반환하세요. 각 아이템: {"cat":"상의|하의|아우터|신발|가방|액세서리","name":"이름","color":"한국어 색상명","colorHex":"#hex","season":["봄","가을"]}. JSON만 반환, 다른 텍스트 없이.`
-      :`이 옷 사진을 분석해서 JSON으로 반환하세요: {"cat":"상의|하의|아우터|신발|가방|액세서리","name":"이름","color":"한국어 색상명","colorHex":"#hex","season":["봄","가을"]}. JSON만 반환.`;
-    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:800,messages:[{role:'user',content:[{type:'image',source:{type:'base64',media_type:file.type||'image/jpeg',data:base64}},{type:'text',text:prompt}]}]})});
-    loadEl.classList.remove('open');
-    if(!res.ok){showFallback(base64,file.type,mode);return;}
-    const data=await res.json();
-    const text=data.content?.[0]?.text||'';
-    let parsed;
-    try{parsed=JSON.parse(text.replace(/```json|```/g,'').trim());}catch{showFallback(base64,file.type,mode);return;}
-    showAnalysisResult(Array.isArray(parsed)?parsed:[parsed],base64,file.type,mode);
-  }catch{
-    document.getElementById('ai-loading').classList.remove('open');
-    showFallback(base64,file.type,mode);
+function changeMonth(d){histMonth=new Date(histMonth.getFullYear(),histMonth.getMonth()+d,1);renderHistory();}
+function renderHistory(){
+  const yr=histMonth.getFullYear(),mo=histMonth.getMonth();
+  document.getElementById('hist-month').textContent=`${yr}년 ${mo+1}월`;
+  const first=new Date(yr,mo,1).getDay(),days=new Date(yr,mo+1,0).getDate();
+  const today=new Date();
+  const monthH=hist.filter(h=>{const[hy,hm]=h.date.split('-').map(Number);return hy===yr&&hm-1===mo;});
+  const byDay={};monthH.forEach(h=>{byDay[parseInt(h.date.split('-')[2])]=h;});
+  const dayNames=['일','월','화','수','목','금','토'];
+  let cal=`<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:6px;">${dayNames.map(d=>`<div style="font-size:10px;color:var(--t3);text-align:center;padding:4px 0;">${d}</div>`).join('')}</div>`;
+  cal+=`<div class="cal-grid">`;
+  for(let i=0;i<first;i++)cal+=`<div></div>`;
+  for(let d=1;d<=days;d++){
+    const has=byDay[d],isT=yr===today.getFullYear()&&mo===today.getMonth()&&d===today.getDate();
+    cal+=`<div class="cal-day${has?' has-outfit':''}${isT?' today':''}">${`<div class="cal-num">${d}</div>`}${has?`<div class="cal-dot"></div>`:''}</div>`;
   }
-}
-function showFallback(base64,mt,mode){
-  const guess=mode==='outfit'
-    ?[{cat:'상의',name:'상의',color:'그레이',colorHex:'#888880',season:['봄','가을']},{cat:'하의',name:'하의',color:'블랙',colorHex:'#1a1a1a',season:['봄','가을']}]
-    :[{cat:'상의',name:'상의',color:'네이비',colorHex:'#1a2a4a',season:['봄','가을']}];
-  showAnalysisResult(guess,base64,mt,mode,true);
-}
-function showAnalysisResult(items,base64,mt,mode,isFallback=false){
-  const imgSrc=base64?`data:${mt||'image/jpeg'};base64,${base64}`:null;
-  pendingItems=items.map(it=>({...it,img:imgSrc}));
-  document.getElementById('analysis-title').textContent=mode==='outfit'?`${items.length}개 아이템 발견`:'AI 분석 완료';
-  document.getElementById('analysis-sub').textContent=isFallback?'AI 연결 전 — 정보를 직접 수정해주세요':'확인 후 저장하세요';
-  document.getElementById('analysis-body').innerHTML=`
-    ${mode==='outfit'&&imgSrc?`<img src="${imgSrc}" style="width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:14px;margin-bottom:12px;">`:''}
-    <div id="pending-items">${items.map((it,i)=>`
-      <div style="border:0.5px solid var(--bd);border-radius:14px;padding:12px;margin-bottom:10px;">
-        <div style="display:flex;gap:10px;align-items:flex-start;">
-          ${mode!=='outfit'&&imgSrc?`<img src="${imgSrc}" style="width:70px;height:70px;object-fit:cover;border-radius:10px;flex-shrink:0;">`:''}
-          <div style="flex:1;">
-            <div style="font-size:11px;background:var(--pl);color:var(--p);padding:3px 10px;border-radius:20px;display:inline-block;margin-bottom:8px;">${it.cat}</div>
-            <input class="finput" style="margin-bottom:8px;" value="${it.name||''}" placeholder="이름" oninput="pendingItems[${i}].name=this.value">
-            <div style="display:flex;gap:6px;flex-wrap:wrap;">
-              ${Object.keys(CATS).map(c=>`<button class="pill s${it.cat===c?' on':''}" style="font-size:11px;padding:5px 10px;" onclick="pendingItems[${i}].cat='${c}';this.parentElement.querySelectorAll('.pill').forEach(p=>p.classList.remove('on'));this.classList.add('on');">${CATS[c].e} ${c}</button>`).join('')}
-            </div>
-          </div>
-        </div>
-      </div>`).join('')}
-    </div>
-    <button class="btn btn-p" onclick="saveAllPending()">${items.length>1?items.length+'개 모두 저장':'옷장에 저장하기'}</button>
-    <div style="height:8px;"></div>`;
-  document.getElementById('analysis-sheet').classList.add('open');
-}
-function saveAllPending(){
-  let cnt=0;
-  pendingItems.forEach(it=>{
-    clos.push({id:Date.now()+Math.random(),cat:it.cat||'상의',cn:it.color||'네이비',h:it.colorHex||COLORS[it.color]||'#1a2a4a',name:it.name||`${it.color||''} ${it.cat||''}`,brand:'',seas:it.season||['봄','가을'],wc:0,at:new Date().toISOString(),img:it.img||null});
-    cnt++;
-  });
-  save();pendingItems=[];
-  document.getElementById('analysis-sheet').classList.remove('open');
-  renderCloset();renderHome();updateProgress();
-  toast(`${cnt}개 등록 완료 ✓`);
-}
-async function handleURL(){
-  const url=document.getElementById('url-input').value.trim();
-  if(!url){toast('URL을 입력해주세요');return;}
-  document.getElementById('url-sheet').classList.remove('open');
-  document.getElementById('ai-loading').classList.add('open');
-  document.getElementById('ai-msg').textContent='상품 정보를 분석하고 있어요...';
-  await new Promise(r=>setTimeout(r,1200));
-  document.getElementById('ai-loading').classList.remove('open');
-  showAnalysisResult([{cat:'상의',name:'온라인 구매 상품',color:'블루',colorHex:'#2a3a5a',season:['봄','가을']}],null,'','single',true);
-}
-function saveManual(){
-  const catEl=document.querySelector('#m-cat-g .cchip.on .clbl');
-  const colEl=document.querySelector('#m-col-g .csw.on');
-  const seas=[...document.querySelectorAll('#m-sea .pill.on')].map(p=>p.dataset.v);
-  const name=document.getElementById('m-iname').value.trim();
-  const brand=document.getElementById('m-ibrand').value.trim();
-  const cat=catEl?.textContent||'상의';
-  const cn=colEl?.dataset.n||'네이비';
-  const h=colEl?.dataset.h||'#1a2a4a';
-  clos.push({id:Date.now(),cat,cn,h,name:name||`${cn} ${cat}`,brand,seas,wc:0,at:new Date().toISOString(),img:null});
-  save();document.getElementById('manual-sheet').classList.remove('open');
-  renderCloset();renderHome();updateProgress();toast('등록 완료 ✓');
+  cal+=`</div>`;
+  document.getElementById('hist-calendar').innerHTML=cal;
+  const avg=monthH.filter(h=>h.score).reduce((s,h,_,a)=>s+h.score/a.length,0);
+  document.getElementById('hist-stats').innerHTML=`
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+      <div style="background:var(--bg2);border-radius:12px;padding:12px;text-align:center;"><div style="font-size:20px;font-weight:700;color:var(--t1);">${monthH.length}</div><div style="font-size:10px;color:var(--t3);">이번 달 착용</div></div>
+      <div style="background:var(--bg2);border-radius:12px;padding:12px;text-align:center;"><div style="font-size:20px;font-weight:700;color:var(--t1);">${avg?Math.round(avg)+'%':'--'}</div><div style="font-size:10px;color:var(--t3);">평균 완성도</div></div>
+      <div style="background:var(--bg2);border-radius:12px;padding:12px;text-align:center;"><div style="font-size:20px;font-weight:700;color:var(--t1);">${hist.length}</div><div style="font-size:10px;color:var(--t3);">전체 기록</div></div>
+    </div>`;
+  const sorted=[...monthH].sort((a,b)=>b.date.localeCompare(a.date));
+  document.getElementById('hist-list').innerHTML=sorted.length?sorted.map(h=>{
+    const items=(h.items||[]).map(id=>clos.find(c=>String(c.id)===id)).filter(Boolean);
+    const sc=h.score;const scC=sc>=80?'score-hi':sc>=65?'score-mid':'score-lo';
+    return`<div class="hist-item">
+      <div class="hist-thumb">${items[0]?.img?`<img src="${items[0].img}">`:`<span>${items[0]?CATS[items[0].cat]?.e:'👔'}</span>`}</div>
+      <div style="flex:1;"><div style="font-size:13px;font-weight:600;color:var(--t1);">${h.date.slice(5).replace('-','/')}</div><div style="font-size:12px;color:var(--t3);margin-top:2px;">${h.occ||'코디'}${h.weather?` · ${h.weather.icon}${h.weather.temp}°`:''}</div></div>
+      ${sc?`<div class="score-badge ${scC}">${sc}%</div>`:''}
+    </div>`;
+  }).join(''):`<div class="empty"><div style="font-size:36px;">📅</div><div style="font-size:14px;color:var(--t1);">이번 달 기록 없음</div></div>`;
 }
 
 // ─── PROFILE ────────────────────────────────
@@ -1031,23 +852,103 @@ function renderProfile(){
   document.getElementById('pstyle').innerHTML=`
     <div class="prow"><span style="font-size:13px;color:var(--t2);">선호 스타일</span><span style="font-size:12px;color:var(--t1);">${(prof.styles||['비즈니스 캐주얼']).join('·')}</span></div>
     <div class="prow"><span style="font-size:13px;color:var(--t2);">코디 목표</span><span style="font-size:13px;font-weight:700;color:var(--p);">${prof.ts||75}%</span></div>`;
-  const toggle=document.getElementById('notif-toggle');
-  const knob=document.getElementById('notif-knob');
-  toggle.style.background=notifOn?'var(--p)':'var(--bd)';
-  knob.style.transform=notifOn?'translateX(18px)':'translateX(0)';
-}
-function toggleNotif(){
-  notifOn=!notifOn;
-  localStorage.setItem('ootd_notif',JSON.stringify(notifOn));
-  if(notifOn&&'Notification' in window){
-    Notification.requestPermission().then(p=>{
-      if(p==='granted')toast('알림이 설정됐어요 🔔');
-      else{notifOn=false;localStorage.setItem('ootd_notif','false');toast('알림 권한이 필요해요');}
-      renderProfile();
-    });
-  } else {renderProfile();}
 }
 function resetApp(){if(confirm('모든 데이터를 초기화할까요?')){localStorage.clear();location.reload();}}
+
+// ─── ADD FLOW ────────────────────────────────
+function openAdd(){updateProgress();document.getElementById('add-sheet').classList.add('open');}
+function closeAdd(){document.getElementById('add-sheet').classList.remove('open');}
+['add-sheet','manual-sheet','url-sheet','analysis-sheet','item-sheet'].forEach(id=>{
+  document.getElementById(id).addEventListener('click',e=>{if(e.target===document.getElementById(id))document.getElementById(id).classList.remove('open');});
+});
+function updateProgress(){
+  const n=clos.length,goal=15,pct=Math.min(100,Math.round(n/goal*100));
+  document.getElementById('prog-fill').style.width=pct+'%';
+  document.getElementById('prog-txt').textContent=`${n} / ${goal}벌`;
+  document.getElementById('prog-hint').textContent=n<5?`첫 추천까지 ${5-n}벌 남음`:n<goal?`목표까지 ${goal-n}벌 남음`:'목표 달성! 🎉';
+}
+function triggerCamera(){closeAdd();document.getElementById('cam-input').click();}
+function triggerOutfit(){closeAdd();document.getElementById('outfit-input').click();}
+function openManual(){closeAdd();document.getElementById('m-iname').value='';document.getElementById('m-ibrand').value='';document.querySelectorAll('#m-cat-g .cchip').forEach((c,i)=>c.classList.toggle('on',i===0));document.querySelectorAll('#m-col-g .csw').forEach((c,i)=>c.classList.toggle('on',i===0));document.getElementById('manual-sheet').classList.add('open');}
+function openURL(){closeAdd();document.getElementById('url-input').value='';document.getElementById('url-sheet').classList.add('open');}
+
+async function handlePhoto(input,mode){
+  if(!input.files||!input.files[0])return;
+  const file=input.files[0];input.value='';
+  const base64=await toBase64(file);
+  document.getElementById('ai-loading').classList.add('open');
+  document.getElementById('ai-msg').textContent=mode==='outfit'?'착장에서 아이템을 찾고 있어요...':'AI가 옷을 분석하고 있어요...';
+  document.getElementById('ai-sub').textContent='사진 분석 중...';
+  try{
+    const prompt=mode==='outfit'
+      ?`이 착장 사진에서 모든 의류 아이템을 분석해서 JSON 배열로 반환하세요. [{"cat":"상의|하의|아우터|신발|가방|액세서리","name":"이름","color":"색상명","colorHex":"#hex","season":["봄","가을"]}] JSON만 반환.`
+      :`이 옷 사진을 분석해서 JSON으로 반환: {"cat":"상의|하의|아우터|신발|가방|액세서리","name":"이름","color":"색상명","colorHex":"#hex","season":["봄","가을"]} JSON만 반환.`;
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:800,messages:[{role:'user',content:[{type:'image',source:{type:'base64',media_type:file.type||'image/jpeg',data:base64}},{type:'text',text:prompt}]}]})});
+    document.getElementById('ai-loading').classList.remove('open');
+    if(!res.ok){showFallback(base64,file.type,mode);return;}
+    const data=await res.json();
+    const text=data.content?.[0]?.text||'';
+    let parsed;try{parsed=JSON.parse(text.replace(/```json|```/g,'').trim());}catch{showFallback(base64,file.type,mode);return;}
+    showAnalysis(Array.isArray(parsed)?parsed:[parsed],base64,file.type,mode);
+  }catch{document.getElementById('ai-loading').classList.remove('open');showFallback(base64,file.type,mode);}
+}
+function showFallback(b64,mt,mode){showAnalysis(mode==='outfit'?[{cat:'상의',name:'상의',color:'그레이',colorHex:'#888880',season:['봄','가을']},{cat:'하의',name:'하의',color:'블랙',colorHex:'#1a1a1a',season:['봄','가을']}]:[{cat:'상의',name:'상의',color:'네이비',colorHex:'#1a2a4a',season:['봄','가을']}],b64,mt,mode,true);}
+function showAnalysis(items,b64,mt,mode,fallback=false){
+  const imgSrc=b64?`data:${mt||'image/jpeg'};base64,${b64}`:null;
+  pendingItems=items.map(it=>({...it,img:imgSrc}));
+  document.getElementById('analysis-title').textContent=mode==='outfit'?`${items.length}개 아이템 발견`:'AI 분석 완료';
+  document.getElementById('analysis-sub').textContent=fallback?'정보를 직접 수정해주세요':'확인 후 저장하세요';
+  document.getElementById('analysis-body').innerHTML=`
+    ${mode==='outfit'&&imgSrc?`<img src="${imgSrc}" style="width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:14px;margin-bottom:12px;">`:''}
+    <div id="pending-items">${items.map((it,i)=>`
+      <div style="border:0.5px solid var(--bd);border-radius:14px;padding:12px;margin-bottom:10px;">
+        <div style="display:flex;gap:10px;align-items:flex-start;">
+          ${mode!=='outfit'&&imgSrc?`<img src="${imgSrc}" style="width:70px;height:70px;object-fit:cover;border-radius:10px;flex-shrink:0;">`:''}
+          <div style="flex:1;">
+            <div style="font-size:11px;background:var(--pl);color:var(--p);padding:3px 10px;border-radius:20px;display:inline-block;margin-bottom:8px;">${it.cat}</div>
+            <input class="finput" style="margin-bottom:8px;" value="${it.name||''}" placeholder="이름" oninput="pendingItems[${i}].name=this.value">
+            <div style="display:flex;gap:5px;flex-wrap:wrap;">${Object.keys(CATS).map(c=>`<button class="pill s${it.cat===c?' on':''}" style="font-size:11px;padding:5px 10px;" onclick="pendingItems[${i}].cat='${c}';this.parentElement.querySelectorAll('.pill').forEach(p=>p.classList.remove('on'));this.classList.add('on');">${CATS[c].e} ${c}</button>`).join('')}</div>
+          </div>
+        </div>
+      </div>`).join('')}
+    </div>
+    <button class="btn btn-p" onclick="saveAllPending()">${items.length>1?items.length+'개 모두 저장':'옷장에 저장하기'}</button>
+    <div style="height:8px;"></div>`;
+  document.getElementById('analysis-sheet').classList.add('open');
+}
+function saveAllPending(){
+  let cnt=0;
+  pendingItems.forEach(it=>{
+    clos.push({id:Date.now()+Math.random(),cat:it.cat||'상의',cn:it.color||'네이비',h:it.colorHex||COLORS[it.color]||'#1a2a4a',name:it.name||`${it.color||''} ${it.cat||''}`.trim(),brand:'',seas:it.season||['봄','가을'],wc:0,at:new Date().toISOString(),img:it.img||null});
+    cnt++;
+  });
+  save();pendingItems=[];
+  document.getElementById('analysis-sheet').classList.remove('open');
+  renderCloset();renderHome();updateProgress();
+  toast(`${cnt}개 등록 완료 ✓`);
+}
+async function handleURL(){
+  const url=document.getElementById('url-input').value.trim();
+  if(!url){toast('URL을 입력해주세요');return;}
+  document.getElementById('url-sheet').classList.remove('open');
+  document.getElementById('ai-loading').classList.add('open');
+  document.getElementById('ai-msg').textContent='상품 정보를 분석하고 있어요...';
+  document.getElementById('ai-sub').textContent='';
+  await new Promise(r=>setTimeout(r,1200));
+  document.getElementById('ai-loading').classList.remove('open');
+  showAnalysis([{cat:'상의',name:'온라인 구매 상품',color:'블루',colorHex:'#2a3a5a',season:['봄','가을']}],null,'','single',true);
+}
+function saveManual(){
+  const catEl=document.querySelector('#m-cat-g .cchip.on .clbl');
+  const colEl=document.querySelector('#m-col-g .csw.on');
+  const seas=[...document.querySelectorAll('#m-sea .pill.on')].map(p=>p.dataset.v);
+  const name=document.getElementById('m-iname').value.trim();
+  const brand=document.getElementById('m-ibrand').value.trim();
+  const cat=catEl?.textContent||'상의',cn=colEl?.dataset.n||'네이비',h=colEl?.dataset.h||'#1a2a4a';
+  clos.push({id:Date.now(),cat,cn,h,name:name||`${cn} ${cat}`,brand,seas,wc:0,at:new Date().toISOString(),img:null});
+  save();document.getElementById('manual-sheet').classList.remove('open');
+  renderCloset();renderHome();updateProgress();toast('등록 완료 ✓');
+}
 
 // ─── HELPERS ────────────────────────────────
 function selG(el,gid){document.getElementById(gid).querySelectorAll('.cchip').forEach(c=>c.classList.remove('on'));el.classList.add('on');}
@@ -1056,44 +957,11 @@ function toBase64(file){return new Promise((res,rej)=>{const r=new FileReader();
 
 // ─── ONBOARDING ─────────────────────────────
 const OBS=[
-  {n:'STEP 1',t:'체형 정보를\n알려주세요',s:'코디 핏 추천에 사용해요.',h:`
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;" id="g-body">
-      ${[['표준형','🧍','균형 잡힌'],['역삼각형','💪','넓은 어깨'],['삼각형','🔺','넓은 하체'],['직사각형','📏','균일한 너비']].map((b,i)=>`<div class="cchip${i===0?' on':''}" onclick="og(this,'g-body')"><div class="cemoji">${b[1]}</div><div class="clbl">${b[0]}</div><div style="font-size:10px;color:var(--t3);margin-top:2px;">${b[2]}</div></div>`).join('')}
-    </div>
-    <div style="display:flex;gap:10px;">
-      <div style="flex:1;"><div class="flbl">키</div><input class="finput" type="number" value="175" id="ob-h"><div style="font-size:11px;color:var(--t3);margin-top:4px;text-align:right;">cm</div></div>
-      <div style="flex:1;"><div class="flbl">몸무게 (선택)</div><input class="finput" type="number" value="75" id="ob-w"><div style="font-size:11px;color:var(--t3);margin-top:4px;text-align:right;">kg</div></div>
-    </div>`},
-  {n:'STEP 2',t:'얼굴형을\n선택해주세요',s:'넥라인·칼라 추천에 활용해요.',h:`
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;" id="g-face">
-      ${[['타원형','🥚','균형'],['직사각형','⬜','각진'],['하트형','🔻','넓은 이마'],['둥근형','⭕','부드러운'],['각진형','🔷','강한 턱'],['역삼각형','🔺','V라인']].map((f,i)=>`<div class="cchip${i===0?' on':''}" onclick="og(this,'g-face')"><div class="cemoji">${f[1]}</div><div class="clbl">${f[0]}</div><div style="font-size:10px;color:var(--t3);margin-top:2px;">${f[2]}</div></div>`).join('')}
-    </div>`},
-  {n:'STEP 3',t:'피부톤을\n알려주세요',s:'색상 팔레트 추천에 활용해요.',h:`
-    <div style="margin-bottom:14px;font-size:13px;font-weight:600;color:var(--t1);">피부 톤</div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;" id="g-tone">
-      ${['#FDEBD8','#F5CBA7','#E8B88A','#D4956A','#B8734A','#8B5230'].map((c,i)=>`<div style="width:40px;height:40px;border-radius:50%;background:${c};cursor:pointer;border:2px solid ${i===1?'var(--p)':'transparent'};${i===1?'box-shadow:0 0 0 3px var(--pl);':''}" onclick="ot(this)"></div>`).join('')}
-    </div>
-    <div style="margin-bottom:12px;font-size:13px;font-weight:600;color:var(--t1);">퍼스널 컬러</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;" id="g-pc">
-      ${[['웜톤','🟡','황금빛·따뜻한'],['쿨톤','🔵','핑크·블루'],['뉴트럴','⬜','중간 계열'],['모르겠어요','🤷','AI가 추론']].map((p,i)=>`<div class="cchip${i===0?' on':''}" onclick="og(this,'g-pc')"><div style="font-size:18px;margin-bottom:4px;">${p[1]}</div><div class="clbl">${p[0]}</div><div style="font-size:10px;color:var(--t3);margin-top:2px;">${p[2]}</div></div>`).join('')}
-    </div>`},
-  {n:'STEP 4',t:'스타일 취향을\n골라주세요',s:'여러 개 선택 가능해요.',h:`
-    <div style="margin-bottom:12px;font-size:13px;font-weight:600;color:var(--t1);">선호 스타일</div>
-    <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px;" id="g-style">
-      ${['비즈니스 캐주얼','미니멀','클래식','스트리트','스마트 캐주얼','스포티','포멀','트렌디'].map((s,i)=>`<button class="pill s${[0,2,4].includes(i)?' on':''}" onclick="this.classList.toggle('on')">${s}</button>`).join('')}
-    </div>
-    <div style="margin-bottom:12px;font-size:13px;font-weight:600;color:var(--t1);">자주 가는 자리</div>
-    <div style="display:flex;flex-wrap:wrap;gap:7px;" id="g-place">
-      ${['사무실·미팅','비즈니스 외부','결혼식 하객','학부모 모임','데이트','주말 외출'].map((p,i)=>`<button class="pill s${[0,1,3].includes(i)?' on':''}" onclick="this.classList.toggle('on')">${p}</button>`).join('')}
-    </div>`},
-  {n:'STEP 5',t:'코디 목표 점수를\n설정해요',s:'이 점수 미만이면 부족 아이템을 안내해요.',h:`
-    <div style="background:var(--bg2);border-radius:20px;padding:20px;margin-bottom:14px;text-align:center;">
-      <div style="font-size:52px;font-weight:800;color:var(--p);letter-spacing:-2px;" id="ob-snum">75%</div>
-      <div style="font-size:12px;color:var(--t3);margin-bottom:14px;">목표 완성도</div>
-      <input type="range" min="50" max="95" value="75" step="5" style="width:100%;" oninput="document.getElementById('ob-snum').textContent=this.value+'%'">
-      <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--t3);margin-top:6px;"><span>50%</span><span>95%</span></div>
-    </div>
-    <div style="background:var(--pl);border-radius:14px;padding:14px;font-size:13px;color:var(--p);line-height:1.6;">75% 이상 코디를 우선 추천해요. 미만이면 무신사에서 부족 아이템을 바로 찾아드려요.</div>`}
+  {n:'STEP 1',t:'체형 정보를\n알려주세요',s:'코디 핏 추천에 사용해요.',h:`<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;" id="g-body">${[['표준형','🧍','균형 잡힌'],['역삼각형','💪','넓은 어깨'],['삼각형','🔺','넓은 하체'],['직사각형','📏','균일한 너비']].map((b,i)=>`<div class="cchip${i===0?' on':''}" onclick="og(this,'g-body')"><div class="cemoji">${b[1]}</div><div class="clbl">${b[0]}</div><div style="font-size:10px;color:var(--t3);margin-top:2px;">${b[2]}</div></div>`).join('')}</div><div style="display:flex;gap:10px;"><div style="flex:1;"><div class="flbl">키</div><input class="finput" type="number" value="175" id="ob-h"><div style="font-size:11px;color:var(--t3);margin-top:4px;text-align:right;">cm</div></div><div style="flex:1;"><div class="flbl">몸무게 (선택)</div><input class="finput" type="number" value="75" id="ob-w"><div style="font-size:11px;color:var(--t3);margin-top:4px;text-align:right;">kg</div></div></div>`},
+  {n:'STEP 2',t:'얼굴형을\n선택해주세요',s:'넥라인·칼라 추천에 활용해요.',h:`<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;" id="g-face">${[['타원형','🥚','균형'],['직사각형','⬜','각진'],['하트형','🔻','넓은 이마'],['둥근형','⭕','부드러운'],['각진형','🔷','강한 턱'],['역삼각형','🔺','V라인']].map((f,i)=>`<div class="cchip${i===0?' on':''}" onclick="og(this,'g-face')"><div class="cemoji">${f[1]}</div><div class="clbl">${f[0]}</div><div style="font-size:10px;color:var(--t3);margin-top:2px;">${f[2]}</div></div>`).join('')}</div>`},
+  {n:'STEP 3',t:'피부톤을\n알려주세요',s:'색상 팔레트 추천에 활용해요.',h:`<div style="margin-bottom:14px;font-size:13px;font-weight:600;color:var(--t1);">피부 톤</div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;" id="g-tone">${['#FDEBD8','#F5CBA7','#E8B88A','#D4956A','#B8734A','#8B5230'].map((c,i)=>`<div style="width:40px;height:40px;border-radius:50%;background:${c};cursor:pointer;border:2px solid ${i===1?'var(--p)':'transparent'};${i===1?'box-shadow:0 0 0 3px var(--pl);':''}" onclick="ot(this)"></div>`).join('')}</div><div style="margin-bottom:12px;font-size:13px;font-weight:600;color:var(--t1);">퍼스널 컬러</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;" id="g-pc">${[['웜톤','🟡','황금빛·따뜻한'],['쿨톤','🔵','핑크·블루'],['뉴트럴','⬜','중간 계열'],['모르겠어요','🤷','AI가 추론']].map((p,i)=>`<div class="cchip${i===0?' on':''}" onclick="og(this,'g-pc')"><div style="font-size:18px;margin-bottom:4px;">${p[1]}</div><div class="clbl">${p[0]}</div><div style="font-size:10px;color:var(--t3);margin-top:2px;">${p[2]}</div></div>`).join('')}</div>`},
+  {n:'STEP 4',t:'스타일 취향을\n골라주세요',s:'여러 개 선택 가능해요.',h:`<div style="margin-bottom:12px;font-size:13px;font-weight:600;color:var(--t1);">선호 스타일</div><div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px;" id="g-style">${['비즈니스 캐주얼','미니멀','클래식','스트리트','스마트 캐주얼','스포티','포멀','트렌디'].map((s,i)=>`<button class="pill s${[0,2,4].includes(i)?' on':''}" onclick="this.classList.toggle('on')">${s}</button>`).join('')}</div><div style="margin-bottom:12px;font-size:13px;font-weight:600;color:var(--t1);">자주 가는 자리</div><div style="display:flex;flex-wrap:wrap;gap:7px;" id="g-place">${['사무실·미팅','비즈니스 외부','결혼식 하객','학부모 모임','데이트','주말 외출'].map((p,i)=>`<button class="pill s${[0,1,3].includes(i)?' on':''}" onclick="this.classList.toggle('on')">${p}</button>`).join('')}</div>`},
+  {n:'STEP 5',t:'코디 목표 점수를\n설정해요',s:'이 점수 미만이면 부족 아이템을 안내해요.',h:`<div style="background:var(--bg2);border-radius:20px;padding:20px;margin-bottom:14px;text-align:center;"><div style="font-size:52px;font-weight:800;color:var(--p);letter-spacing:-2px;" id="ob-snum">75%</div><div style="font-size:12px;color:var(--t3);margin-bottom:14px;">목표 완성도</div><input type="range" min="50" max="95" value="75" step="5" style="width:100%;" oninput="document.getElementById('ob-snum').textContent=this.value+'%'"><div style="display:flex;justify-content:space-between;font-size:11px;color:var(--t3);margin-top:6px;"><span>50%</span><span>95%</span></div></div><div style="background:var(--pl);border-radius:14px;padding:14px;font-size:13px;color:var(--p);line-height:1.6;">75% 이상 코디를 우선 추천해요. 미만이면 무신사에서 부족 아이템을 바로 찾아드려요.</div>`}
 ];
 let obStep=0;
 function renderOB(){
@@ -1102,11 +970,7 @@ function renderOB(){
   document.getElementById('ob-bar').style.width=((obStep+1)/OBS.length*100)+'%';
   document.getElementById('ob-cnt').textContent=`${obStep+1} / ${OBS.length}`;
   document.getElementById('ob-dots').innerHTML=OBS.map((_,i)=>`<div style="height:6px;width:${i===obStep?'18':'6'}px;border-radius:3px;background:${i===obStep?'var(--p)':'var(--bg2)'};transition:all .3s;"></div>`).join('');
-  document.getElementById('ob-foot').innerHTML=obStep===0
-    ?`<button class="btn btn-p" onclick="obN()">다음 →</button>`
-    :obStep<OBS.length-1
-    ?`<div style="display:flex;gap:10px;"><button class="btn btn-g" style="width:auto;padding:14px 20px;" onclick="obB()">←</button><button class="btn btn-p" style="flex:1;" onclick="obN()">다음 →</button></div>`
-    :`<div style="display:flex;gap:10px;"><button class="btn btn-g" style="width:auto;padding:14px 20px;" onclick="obB()">←</button><button class="btn btn-p" style="flex:1;" onclick="finOB()">시작하기 🎉</button></div>`;
+  document.getElementById('ob-foot').innerHTML=obStep===0?`<button class="btn btn-p" onclick="obN()">다음 →</button>`:obStep<OBS.length-1?`<div style="display:flex;gap:10px;"><button class="btn btn-g" style="width:auto;padding:14px 20px;" onclick="obB()">←</button><button class="btn btn-p" style="flex:1;" onclick="obN()">다음 →</button></div>`:`<div style="display:flex;gap:10px;"><button class="btn btn-g" style="width:auto;padding:14px 20px;" onclick="obB()">←</button><button class="btn btn-p" style="flex:1;" onclick="finOB()">시작하기 🎉</button></div>`;
 }
 function og(el,gid){document.getElementById(gid).querySelectorAll('.cchip').forEach(c=>c.classList.remove('on'));el.classList.add('on');}
 function ot(el){document.querySelectorAll('#g-tone div').forEach(d=>{d.style.border='2px solid transparent';d.style.boxShadow='';});el.style.border='2px solid var(--p)';el.style.boxShadow='0 0 0 3px var(--pl)';}
@@ -1123,11 +987,10 @@ function finOB(){
   saveP();
   document.getElementById('ob').style.display='none';
   document.getElementById('app').style.display='flex';
-  fetchWeather();
-  renderHome();
+  fetchWeather();renderHome();
 }
 
-// ─── BOOT ────────────────────────────────────
+// ─── BOOT ───────────────────────────────────
 window.addEventListener('DOMContentLoaded',()=>{
   renderOB();
   setTimeout(()=>{
@@ -1136,10 +999,9 @@ window.addEventListener('DOMContentLoaded',()=>{
       document.getElementById('splash').style.display='none';
       if(prof){
         document.getElementById('app').style.display='flex';
-        renderHome();renderCloset();
         if(prof)document.getElementById('req-hint').textContent=`체형(${prof.body}·${prof.h}cm)·퍼스널 컬러(${prof.pc}) 자동 반영`;
-        fetchWeather();
-      } else {
+        fetchWeather();renderHome();renderCloset();
+      }else{
         document.getElementById('ob').style.display='flex';
       }
     },500);
