@@ -395,7 +395,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Pretendard','Apple SD Gothic 
     <div class="sh"></div>
     <div class="shead">
       <div><div style="font-size:16px;font-weight:700;color:var(--t1);" id="analysis-title">AI 분석 결과</div><div style="font-size:11px;color:var(--t3);margin-top:2px;" id="analysis-sub"></div></div>
-      <button onclick="document.getElementById('analysis-sheet').classList.remove('open')" style="border:none;background:transparent;font-size:18px;color:var(--t3);cursor:pointer;">✕</button>
+      <button onclick="event.stopPropagation();document.getElementById('analysis-sheet').classList.remove('open')" style="border:none;background:transparent;font-size:18px;color:var(--t3);cursor:pointer;">✕</button>
     </div>
     <div class="sscroll" id="analysis-body"></div>
   </div>
@@ -859,7 +859,12 @@ function resetApp(){if(confirm('모든 데이터를 초기화할까요?')){local
 function openAdd(){updateProgress();document.getElementById('add-sheet').classList.add('open');}
 function closeAdd(){document.getElementById('add-sheet').classList.remove('open');}
 ['add-sheet','manual-sheet','url-sheet','analysis-sheet','item-sheet'].forEach(id=>{
-  document.getElementById(id).addEventListener('click',e=>{if(e.target===document.getElementById(id))document.getElementById(id).classList.remove('open');});
+  document.getElementById(id).addEventListener('click',e=>{
+    // 시트 바깥(dim 영역) 클릭시에만 닫힘 — 시트 내부 버튼 클릭은 무시
+    if(e.target===document.getElementById(id)){
+      document.getElementById(id).classList.remove('open');
+    }
+  });
 });
 function updateProgress(){
   const n=clos.length,goal=15,pct=Math.min(100,Math.round(n/goal*100));
@@ -912,19 +917,30 @@ function showAnalysis(items,b64,mt,mode,fallback=false){
         </div>
       </div>`).join('')}
     </div>
-    <button class="btn btn-p" onclick="saveAllPending()">${items.length>1?items.length+'개 모두 저장':'옷장에 저장하기'}</button>
+    <button class="btn btn-p" onclick="event.stopPropagation();saveAllPending();" style="margin-top:4px;position:relative;z-index:10;">${items.length>1?items.length+'개 모두 저장':'옷장에 저장하기'}</button>
     <div style="height:8px;"></div>`;
   document.getElementById('analysis-sheet').classList.add('open');
 }
 function saveAllPending(){
+  if(!pendingItems||!pendingItems.length){toast('저장할 아이템이 없어요');return;}
   let cnt=0;
   pendingItems.forEach(it=>{
-    clos.push({id:Date.now()+Math.random(),cat:it.cat||'상의',cn:it.color||'네이비',h:it.colorHex||COLORS[it.color]||'#1a2a4a',name:it.name||`${it.color||''} ${it.cat||''}`.trim(),brand:'',seas:it.season||['봄','가을'],wc:0,at:new Date().toISOString(),img:it.img||null});
+    const nm=(it.name||'').trim()||`${it.color||''} ${it.cat||''}`.trim()||it.cat||'아이템';
+    clos.push({
+      id:Date.now()+Math.random(),
+      cat:it.cat||'상의',
+      cn:it.color||'네이비',
+      h:it.colorHex||COLORS[it.color]||'#1a2a4a',
+      name:nm,brand:'',
+      seas:it.season||['봄','가을'],
+      wc:0,at:new Date().toISOString(),img:it.img||null
+    });
     cnt++;
   });
-  save();pendingItems=[];
+  save();
+  pendingItems=[];
   document.getElementById('analysis-sheet').classList.remove('open');
-  renderCloset();renderHome();updateProgress();
+  setTimeout(()=>{renderCloset();renderHome();updateProgress();},100);
   toast(`${cnt}개 등록 완료 ✓`);
 }
 async function handleURL(){
